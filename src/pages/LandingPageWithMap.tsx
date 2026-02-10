@@ -691,8 +691,8 @@ export function LandingPageWithMap() {
                       <div className="text-sm text-gray-400">5 hours ago</div>
                     </div>
                     
-                    <button className="w-full bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white py-3 rounded-xl font-semibold transition-all flex items-center justify-center gap-2 group-hover:scale-105">
-                      View Report
+                    <button className="w-full bg-gradient-to-r from-pink-600 to-red-600 hover:from-pink-700 hover:to-red-700 text-white py-3 rounded-xl font-semibold transition-all flex items-center justify-center gap-2 group-hover:scale-105 shadow-lg shadow-pink-500/30 hover:shadow-xl hover:shadow-pink-500/40">
+                      Directions
                       <ArrowRight className="w-4 h-4" />
                     </button>
                   </div>
@@ -750,8 +750,8 @@ export function LandingPageWithMap() {
                       <div className="text-sm text-gray-400">1 day ago</div>
                     </div>
                     
-                    <button className="w-full bg-gradient-to-r from-orange-600 to-pink-600 hover:from-orange-700 hover:to-pink-700 text-white py-3 rounded-xl font-semibold transition-all flex items-center justify-center gap-2 group-hover:scale-105">
-                      View Report
+                    <button className="w-full bg-gradient-to-r from-pink-600 to-red-600 hover:from-pink-700 hover:to-red-700 text-white py-3 rounded-xl font-semibold transition-all flex items-center justify-center gap-2 group-hover:scale-105 shadow-lg shadow-pink-500/30 hover:shadow-xl hover:shadow-pink-500/40">
+                      Directions
                       <ArrowRight className="w-4 h-4" />
                     </button>
                   </div>

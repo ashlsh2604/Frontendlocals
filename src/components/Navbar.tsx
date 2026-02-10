@@ -189,22 +189,15 @@ export function Navbar() {
                       <motion.div
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
-                        className={`
-                          flex items-center gap-2 px-4 py-2.5 rounded-xl font-semibold transition-all relative overflow-hidden
-                          ${active 
-                            ? 'bg-gradient-to-r from-blue-500 to-purple-500 text-white shadow-lg shadow-blue-500/30' 
-                            : 'bg-white/60 text-gray-700 hover:bg-white/80 hover:text-blue-600 shadow-sm hover:shadow-md'
-                          }
-                        `}
+                        className="flex items-center gap-2 px-4 py-2.5 rounded-xl font-semibold transition-all relative overflow-hidden bg-gradient-to-r from-pink-600 to-red-600 text-white shadow-lg shadow-pink-500/30 hover:shadow-xl hover:shadow-pink-500/40"
                       >
-                        {active && (
-                          <motion.div
-                            layoutId="activeTab"
-                            className="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-500 rounded-xl"
-                            transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                          />
-                        )}
-                        <Icon className={`w-4 h-4 relative z-10 ${active ? 'text-white' : 'text-gray-500 group-hover:text-blue-600'}`} />
+                        <motion.div
+                          className="absolute inset-0 bg-gradient-to-r from-pink-700 to-red-700"
+                          initial={{ x: '-100%' }}
+                          whileHover={{ x: 0 }}
+                          transition={{ duration: 0.3 }}
+                        />
+                        <Icon className="w-4 h-4 relative z-10 text-white" />
                         <span className="text-sm relative z-10">{item.label}</span>
                       </motion.div>
                     </Link>
@@ -221,11 +214,11 @@ export function Navbar() {
                 whileTap={{ scale: 0.95 }}
                 onClick={handleNearbyPlaces}
                 disabled={isRequestingLocation}
-                className="relative flex items-center gap-2 px-4 py-2.5 rounded-xl font-semibold transition-all bg-gradient-to-r from-orange-500 to-red-500 text-white shadow-lg shadow-orange-500/30 hover:shadow-xl hover:shadow-orange-500/40 disabled:opacity-50 disabled:cursor-not-allowed overflow-hidden group"
+                className="relative flex items-center gap-2 px-4 py-2.5 rounded-xl font-semibold transition-all bg-gradient-to-r from-pink-600 to-red-600 text-white shadow-lg shadow-pink-500/30 hover:shadow-xl hover:shadow-pink-500/40 disabled:opacity-50 disabled:cursor-not-allowed overflow-hidden group"
                 title="Find verified places near you"
               >
                 <motion.div
-                  className="absolute inset-0 bg-gradient-to-r from-orange-600 to-red-600"
+                  className="absolute inset-0 bg-gradient-to-r from-pink-700 to-red-700"
                   initial={{ x: '-100%' }}
                   whileHover={{ x: 0 }}
                   transition={{ duration: 0.3 }}
@@ -255,15 +248,15 @@ export function Navbar() {
                 whileHover={{ scale: 1.05, y: -2 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={() => setIsCameraModalOpen(true)}
-                className={`
-                  relative flex items-center gap-2 px-4 py-2.5 rounded-xl font-semibold transition-all overflow-hidden group
-                  ${cameraPermissionGranted 
-                    ? 'bg-gradient-to-r from-green-500 to-emerald-500 text-white shadow-lg shadow-green-500/30' 
-                    : 'bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-lg shadow-purple-500/30'
-                  }
-                `}
+                className="relative flex items-center gap-2 px-4 py-2.5 rounded-xl font-semibold transition-all overflow-hidden group bg-gradient-to-r from-pink-600 to-red-600 text-white shadow-lg shadow-pink-500/30 hover:shadow-xl hover:shadow-pink-500/40"
                 title={cameraPermissionGranted ? 'Camera access granted' : 'Enable camera access'}
               >
+                <motion.div
+                  className="absolute inset-0 bg-gradient-to-r from-pink-700 to-red-700"
+                  initial={{ x: '-100%' }}
+                  whileHover={{ x: 0 }}
+                  transition={{ duration: 0.3 }}
+                />
                 <motion.div
                   animate={cameraPermissionGranted ? { rotate: [0, 5, -5, 0] } : {}}
                   transition={{ duration: 0.5, repeat: Infinity, repeatDelay: 3 }}
@@ -297,17 +290,11 @@ export function Navbar() {
                   <motion.div
                     whileHover={{ scale: 1.05, y: -2 }}
                     whileTap={{ scale: 0.95 }}
-                    className={`
-                      relative flex items-center gap-2 px-4 py-2.5 rounded-xl font-semibold transition-all overflow-hidden group
-                      ${isActive('/account')
-                        ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-xl shadow-purple-500/40' 
-                        : 'bg-gradient-to-r from-blue-500 to-purple-500 text-white shadow-lg shadow-blue-500/30 hover:shadow-xl hover:shadow-purple-500/40'
-                      }
-                    `}
+                    className="relative flex items-center gap-2 px-4 py-2.5 rounded-xl font-semibold transition-all overflow-hidden group bg-gradient-to-r from-pink-600 to-red-600 text-white shadow-lg shadow-pink-500/30 hover:shadow-xl hover:shadow-pink-500/40"
                     title="Account Settings"
                   >
                     <motion.div
-                      className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600"
+                      className="absolute inset-0 bg-gradient-to-r from-pink-700 to-red-700"
                       initial={{ x: '-100%' }}
                       whileHover={{ x: 0 }}
                       transition={{ duration: 0.3 }}
@@ -338,14 +325,14 @@ export function Navbar() {
                 <motion.button
                   whileHover={{ scale: 1.05, y: -2 }}
                   whileTap={{ scale: 0.95 }}
-                  className="relative flex items-center gap-2 px-4 py-2.5 rounded-xl font-semibold transition-all overflow-hidden group bg-white/60 text-gray-700 hover:bg-white/80 shadow-sm hover:shadow-md"
+                  className="relative flex items-center gap-2 px-4 py-2.5 rounded-xl font-semibold transition-all overflow-hidden group bg-gradient-to-r from-pink-600 to-red-600 text-white shadow-lg shadow-pink-500/30 hover:shadow-xl hover:shadow-pink-500/40"
                   title="Notifications"
                 >
                   {/* Hover gradient effect */}
                   <motion.div
-                    className="absolute inset-0 bg-gradient-to-r from-yellow-400/20 to-orange-400/20"
-                    initial={{ opacity: 0 }}
-                    whileHover={{ opacity: 1 }}
+                    className="absolute inset-0 bg-gradient-to-r from-pink-700 to-red-700"
+                    initial={{ x: '-100%' }}
+                    whileHover={{ x: 0 }}
                     transition={{ duration: 0.3 }}
                   />
                   
@@ -361,7 +348,7 @@ export function Navbar() {
                         repeatDelay: 3,
                       }}
                     >
-                      <Bell className="w-4 h-4 relative z-10 text-gray-600 group-hover:text-yellow-600" />
+                      <Bell className="w-4 h-4 relative z-10 text-white" />
                     </motion.div>
                     
                     {/* Notification Badge */}
@@ -372,7 +359,7 @@ export function Navbar() {
                         className="absolute -top-2 -right-2 z-20"
                       >
                         <motion.div
-                          className="relative flex items-center justify-center min-w-[18px] h-[18px] px-1 bg-gradient-to-br from-red-500 to-orange-500 rounded-full border-2 border-white shadow-lg"
+                          className="relative flex items-center justify-center min-w-[18px] h-[18px] px-1 bg-gradient-to-br from-yellow-400 to-orange-400 rounded-full border-2 border-white shadow-lg"
                           animate={{
                             scale: [1, 1.1, 1],
                           }}
@@ -381,13 +368,13 @@ export function Navbar() {
                             repeat: Infinity,
                           }}
                         >
-                          <span className="text-[10px] font-black text-white">
+                          <span className="text-[10px] font-black text-gray-900">
                             {notificationCount > 9 ? '9+' : notificationCount}
                           </span>
                           
                           {/* Pulsing ring */}
                           <motion.div
-                            className="absolute inset-0 border-2 border-red-400 rounded-full"
+                            className="absolute inset-0 border-2 border-yellow-400 rounded-full"
                             animate={{
                               scale: [1, 1.6],
                               opacity: [0.6, 0],
@@ -407,7 +394,7 @@ export function Navbar() {
                   {/* New notification indicator */}
                   {notificationCount > 0 && (
                     <motion.div
-                      className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full z-10"
+                      className="absolute top-1 right-1 w-2 h-2 bg-yellow-400 rounded-full z-10"
                       animate={{
                         scale: [1, 1.5, 1],
                         opacity: [1, 0.5, 1],
