@@ -174,7 +174,7 @@ export function CameraDiagnostics() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-gray-50">
+    <div className="min-h-screen flex flex-col bg-white">
       <Navbar />
       
       <div className="flex-1 py-12">

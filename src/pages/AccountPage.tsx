@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import { Navbar } from '../components/Navbar';
 import { Footer } from '../components/Footer';
-import { User, Mail, Phone, MapPin, Shield, CreditCard, Edit2, Save, X, CheckCircle, Camera, Lock, Smartphone, Key, Coins, TrendingUp, Award, Gift, ArrowRight, Zap, Bell, Eye, EyeOff } from 'lucide-react';
+import { User, Mail, Phone, MapPin, Shield, CreditCard, Edit2, Save, X, CheckCircle, Camera, Lock, Smartphone, Key, Coins, TrendingUp, Award, Gift, ArrowRight, Zap, Bell, Eye, EyeOff, LogOut } from 'lucide-react';
 import { motion } from 'motion/react';
 
 export function AccountPage() {
@@ -99,8 +99,15 @@ export function AccountPage() {
     }
   };
 
+  const handleLogout = () => {
+    // In a real app, you would clear authentication tokens and session data
+    if (window.confirm('Are you sure you want to logout?')) {
+      navigate('/');
+    }
+  };
+
   return (
-    <div className="min-h-screen flex flex-col bg-black relative overflow-hidden">
+    <div className="min-h-screen flex flex-col bg-white relative overflow-hidden">
       <Navbar />
       
       {/* Animated Background */}
@@ -571,6 +578,40 @@ export function AccountPage() {
                       </motion.div>
                     ))}
                   </div>
+                </div>
+              </motion.div>
+
+              {/* Logout Button */}
+              <motion.div
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.6 }}
+                className="relative"
+              >
+                <motion.div
+                  className="absolute -inset-1 bg-gradient-to-r from-red-500/20 via-pink-500/20 to-orange-500/20 blur-xl rounded-3xl"
+                  animate={{
+                    opacity: [0.3, 0.5, 0.3],
+                  }}
+                  transition={{
+                    duration: 4,
+                    repeat: Infinity,
+                  }}
+                />
+
+                <div className="relative bg-white/5 backdrop-blur-2xl border border-white/10 rounded-3xl p-6 shadow-2xl">
+                  <motion.button
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    onClick={handleLogout}
+                    className="w-full py-4 bg-gradient-to-r from-red-600 to-pink-600 hover:from-red-700 hover:to-pink-700 text-white rounded-xl font-bold shadow-lg flex items-center justify-center gap-3 transition-all group"
+                  >
+                    <LogOut className="w-5 h-5 group-hover:rotate-12 transition-transform" />
+                    Logout
+                  </motion.button>
+                  <p className="text-xs text-gray-400 text-center mt-3">
+                    You will be redirected to the home page
+                  </p>
                 </div>
               </motion.div>
             </div>

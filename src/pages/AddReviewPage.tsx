@@ -78,7 +78,7 @@ export function AddReviewPage() {
   const ratingLabels = ['Poor', 'Fair', 'Good', 'Very Good', 'Excellent'];
 
   return (
-    <div className="min-h-screen flex flex-col bg-black relative overflow-hidden">
+    <div className="min-h-screen flex flex-col bg-white relative overflow-hidden">
       <Navbar />
       
       {/* Animated Background */}

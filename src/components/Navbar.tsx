@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router';
-import { MapPin, Search, LayoutDashboard, PenSquare, Menu, X, Home, Camera, Navigation, Shield, CheckCircle, User, Bell, Users, Compass, HelpCircle, Sparkles } from 'lucide-react';
+import { MapPin, Search, LayoutDashboard, PenSquare, Menu, X, Home, Camera, Navigation, Shield, CheckCircle, User, Bell, Users, Compass, HelpCircle, Sparkles, Heart, Award, TrendingUp, MapPinned, Settings } from 'lucide-react';
 import { CameraPermissionModal } from './CameraPermissionModal';
 import { motion, AnimatePresence } from 'motion/react';
 
@@ -11,6 +11,7 @@ export function Navbar() {
   const [isCameraModalOpen, setIsCameraModalOpen] = useState(false);
   const [cameraPermissionGranted, setCameraPermissionGranted] = useState(false);
   const [isRequestingLocation, setIsRequestingLocation] = useState(false);
+  const [isAlertsOpen, setIsAlertsOpen] = useState(false);
   
   const isActive = (path: string) => {
     return location.pathname === path;
@@ -68,7 +69,7 @@ export function Navbar() {
   };
 
   const navItems = [
-    { path: '/', label: 'Home', icon: Home, primary: false },
+    { path: '/home', label: 'Home', icon: Home, primary: false },
     { path: '/add-review', label: 'Add Review', icon: PenSquare, primary: false },
   ];
 
@@ -321,10 +322,12 @@ export function Navbar() {
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.5 }}
+                className="relative"
               >
                 <motion.button
                   whileHover={{ scale: 1.05, y: -2 }}
                   whileTap={{ scale: 0.95 }}
+                  onClick={() => setIsAlertsOpen(!isAlertsOpen)}
                   className="relative flex items-center gap-2 px-4 py-2.5 rounded-xl font-semibold transition-all overflow-hidden group bg-gradient-to-r from-pink-600 to-red-600 text-white shadow-lg shadow-pink-500/30 hover:shadow-xl hover:shadow-pink-500/40"
                   title="Notifications"
                 >
@@ -406,6 +409,221 @@ export function Navbar() {
                     />
                   )}
                 </motion.button>
+
+                {/* Alerts Dropdown */}
+                <AnimatePresence>
+                  {isAlertsOpen && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                      exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                      transition={{ duration: 0.2 }}
+                      className="absolute right-0 mt-3 w-96 bg-white rounded-2xl shadow-2xl border border-gray-200 overflow-hidden z-50"
+                    >
+                      {/* Header */}
+                      <div className="bg-gradient-to-r from-pink-600 to-red-600 px-6 py-4 flex items-center justify-between">
+                        <div className="flex items-center gap-2">
+                          <Bell className="w-5 h-5 text-white" />
+                          <h3 className="font-bold text-white text-lg">Alerts</h3>
+                        </div>
+                        <button
+                          onClick={() => setIsAlertsOpen(false)}
+                          className="text-white/80 hover:text-white transition-colors"
+                        >
+                          <X className="w-5 h-5" />
+                        </button>
+                      </div>
+
+                      {/* Notifications List */}
+                      <div className="max-h-[500px] overflow-y-auto">
+                        {/* Notification 1 - New Verification */}
+                        <motion.div
+                          initial={{ opacity: 0, x: -20 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ delay: 0.1 }}
+                          className="border-b border-gray-100 p-4 hover:bg-pink-50 transition-colors cursor-pointer group"
+                        >
+                          <div className="flex gap-3">
+                            <div className="flex-shrink-0">
+                              <div className="w-12 h-12 bg-gradient-to-br from-pink-500 to-red-500 rounded-full flex items-center justify-center shadow-lg">
+                                <CheckCircle className="w-6 h-6 text-white" />
+                              </div>
+                            </div>
+                            <div className="flex-1 min-w-0">
+                              <div className="flex items-start justify-between gap-2">
+                                <h4 className="font-bold text-gray-900 text-sm group-hover:text-pink-600 transition-colors">
+                                  New Verification Complete! 🎉
+                                </h4>
+                                <span className="text-xs text-gray-500 flex-shrink-0">2m ago</span>
+                              </div>
+                              <p className="text-sm text-gray-600 mt-1">
+                                Your verification for <span className="font-semibold">The Oberoi Hotel</span> has been approved. +50 credits added!
+                              </p>
+                              <div className="flex items-center gap-2 mt-2">
+                                <div className="flex items-center gap-1 bg-yellow-100 px-2 py-1 rounded-full">
+                                  <Award className="w-3 h-3 text-yellow-600" />
+                                  <span className="text-xs font-bold text-yellow-700">+50 Credits</span>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </motion.div>
+
+                        {/* Notification 2 - Trending Place */}
+                        <motion.div
+                          initial={{ opacity: 0, x: -20 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ delay: 0.2 }}
+                          className="border-b border-gray-100 p-4 hover:bg-pink-50 transition-colors cursor-pointer group"
+                        >
+                          <div className="flex gap-3">
+                            <div className="flex-shrink-0">
+                              <div className="w-12 h-12 bg-gradient-to-br from-orange-500 to-red-500 rounded-full flex items-center justify-center shadow-lg">
+                                <TrendingUp className="w-6 h-6 text-white" />
+                              </div>
+                            </div>
+                            <div className="flex-1 min-w-0">
+                              <div className="flex items-start justify-between gap-2">
+                                <h4 className="font-bold text-gray-900 text-sm group-hover:text-pink-600 transition-colors">
+                                  Place You Verified is Trending! 🔥
+                                </h4>
+                                <span className="text-xs text-gray-500 flex-shrink-0">1h ago</span>
+                              </div>
+                              <p className="text-sm text-gray-600 mt-1">
+                                <span className="font-semibold">FitZone Gym, Koramangala</span> is now trending in Bangalore! Your verification helped 127 people today.
+                              </p>
+                              <div className="flex items-center gap-2 mt-2">
+                                <div className="flex items-center gap-1 bg-orange-100 px-2 py-1 rounded-full">
+                                  <Heart className="w-3 h-3 text-orange-600 fill-orange-600" />
+                                  <span className="text-xs font-bold text-orange-700">127 Views</span>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </motion.div>
+
+                        {/* Notification 3 - New Task Available */}
+                        <motion.div
+                          initial={{ opacity: 0, x: -20 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ delay: 0.3 }}
+                          className="border-b border-gray-100 p-4 hover:bg-pink-50 transition-colors cursor-pointer group"
+                        >
+                          <div className="flex gap-3">
+                            <div className="flex-shrink-0">
+                              <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center shadow-lg">
+                                <MapPinned className="w-6 h-6 text-white" />
+                              </div>
+                            </div>
+                            <div className="flex-1 min-w-0">
+                              <div className="flex items-start justify-between gap-2">
+                                <h4 className="font-bold text-gray-900 text-sm group-hover:text-pink-600 transition-colors">
+                                  New Verification Task Near You! 📍
+                                </h4>
+                                <span className="text-xs text-gray-500 flex-shrink-0">3h ago</span>
+                              </div>
+                              <p className="text-sm text-gray-600 mt-1">
+                                A hotel in <span className="font-semibold">Indiranagar (1.2km away)</span> needs verification. Earn up to ₹200!
+                              </p>
+                              <div className="flex items-center gap-2 mt-2">
+                                <div className="flex items-center gap-1 bg-green-100 px-2 py-1 rounded-full">
+                                  <Sparkles className="w-3 h-3 text-green-600" />
+                                  <span className="text-xs font-bold text-green-700">High Priority</span>
+                                </div>
+                                <div className="flex items-center gap-1 bg-blue-100 px-2 py-1 rounded-full">
+                                  <span className="text-xs font-bold text-blue-700">₹200 Reward</span>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </motion.div>
+
+                        {/* Notification 4 - Valentine's Day Bonus */}
+                        <motion.div
+                          initial={{ opacity: 0, x: -20 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ delay: 0.4 }}
+                          className="p-4 hover:bg-pink-50 transition-colors cursor-pointer group bg-gradient-to-r from-pink-50 to-red-50"
+                        >
+                          <div className="flex gap-3">
+                            <div className="flex-shrink-0">
+                              <div className="w-12 h-12 bg-gradient-to-br from-pink-600 to-red-600 rounded-full flex items-center justify-center shadow-lg animate-pulse">
+                                <Heart className="w-6 h-6 text-white fill-white" />
+                              </div>
+                            </div>
+                            <div className="flex-1 min-w-0">
+                              <div className="flex items-start justify-between gap-2">
+                                <h4 className="font-bold text-gray-900 text-sm group-hover:text-pink-600 transition-colors">
+                                  💕 Valentine's Day Special Offer!
+                                </h4>
+                                <span className="text-xs text-gray-500 flex-shrink-0">5h ago</span>
+                              </div>
+                              <p className="text-sm text-gray-600 mt-1">
+                                Complete any 3 verifications this week and get <span className="font-bold text-pink-600">2x bonus credits</span>! Offer valid until Feb 14.
+                              </p>
+                              <div className="mt-3">
+                                <div className="flex items-center justify-between mb-1">
+                                  <span className="text-xs font-semibold text-gray-700">Progress: 1/3 tasks</span>
+                                  <span className="text-xs font-bold text-pink-600">33%</span>
+                                </div>
+                                <div className="w-full bg-gray-200 rounded-full h-2">
+                                  <motion.div
+                                    initial={{ width: 0 }}
+                                    animate={{ width: '33%' }}
+                                    transition={{ duration: 1, delay: 0.5 }}
+                                    className="bg-gradient-to-r from-pink-600 to-red-600 h-2 rounded-full"
+                                  />
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </motion.div>
+                      </div>
+
+                      {/* Footer */}
+                      <div className="bg-gray-50 px-6 py-3 border-t border-gray-200">
+                        <button className="w-full text-center text-sm font-semibold text-pink-600 hover:text-pink-700 transition-colors">
+                          View All Notifications
+                        </button>
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </motion.div>
+
+              {/* Settings Button */}
+              <motion.div
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.6 }}
+              >
+                <Link to="/account">
+                  <motion.div
+                    whileHover={{ scale: 1.05, y: -2 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="relative flex items-center justify-center p-2.5 rounded-xl font-semibold transition-all overflow-hidden group bg-gradient-to-r from-pink-600 to-red-600 text-white shadow-lg shadow-pink-500/30 hover:shadow-xl hover:shadow-pink-500/40"
+                    title="Settings"
+                  >
+                    <motion.div
+                      className="absolute inset-0 bg-gradient-to-r from-pink-700 to-red-700"
+                      initial={{ x: '-100%' }}
+                      whileHover={{ x: 0 }}
+                      transition={{ duration: 0.3 }}
+                    />
+                    <motion.div
+                      animate={{
+                        rotate: [0, 180],
+                      }}
+                      transition={{
+                        duration: 8,
+                        repeat: Infinity,
+                        ease: "linear",
+                      }}
+                    >
+                      <Settings className="w-5 h-5 relative z-10" />
+                    </motion.div>
+                  </motion.div>
+                </Link>
               </motion.div>
             </div>
 

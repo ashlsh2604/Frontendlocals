@@ -322,7 +322,7 @@ export default function NearbyPlaces() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-fuchsia-950 via-magenta-950 to-pink-950 relative overflow-hidden">
+    <div className="min-h-screen bg-white relative overflow-hidden">
       {/* Navbar */}
       <Navbar />
       

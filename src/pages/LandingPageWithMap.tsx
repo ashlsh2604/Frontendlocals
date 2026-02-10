@@ -54,7 +54,7 @@ export function LandingPageWithMap() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-black">
+    <div className="min-h-screen flex flex-col bg-white">
       <Navbar />
       
       {/* Hero Section with Map Background */}
@@ -196,7 +196,7 @@ export function LandingPageWithMap() {
                   onClick={handleSearch}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="group bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-4 rounded-xl font-bold transition-all shadow-lg flex items-center justify-center gap-2"
+                  className="group bg-gradient-to-r from-pink-600 to-red-600 hover:from-pink-700 hover:to-red-700 text-white px-8 py-4 rounded-xl font-bold transition-all shadow-lg shadow-pink-500/30 hover:shadow-xl hover:shadow-pink-500/40 flex items-center justify-center gap-2"
                 >
                   <Search className="w-5 h-5" />
                   Search
@@ -218,16 +218,16 @@ export function LandingPageWithMap() {
             <div className="text-center mb-8">
               <motion.div 
                 initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 0.35 }}
-                className="inline-flex items-center gap-2 bg-gradient-to-r from-pink-600 to-red-600 text-white text-sm font-bold px-5 py-2.5 rounded-full mb-4 shadow-lg"
-                animate={{
-                  scale: [1, 1.05, 1],
+                animate={{ 
+                  opacity: 1, 
+                  scale: [1, 1.05, 1]
                 }}
-                transition={{
+                transition={{ 
+                  delay: 0.35,
                   duration: 2,
-                  repeat: Infinity,
+                  repeat: Infinity
                 }}
+                className="inline-flex items-center gap-2 bg-gradient-to-r from-pink-600 to-red-600 text-white text-sm font-bold px-5 py-2.5 rounded-full mb-4 shadow-lg"
               >
                 <Heart className="w-4 h-4 fill-white" />
                 VALENTINE'S DAY SPECIAL
@@ -610,7 +610,7 @@ export function LandingPageWithMap() {
                       🏨 Hotel
                     </div>
                     
-                    <div className="absolute top-4 right-4 bg-blue-500/90 backdrop-blur-sm text-white px-3 py-1.5 rounded-lg text-xs font-bold z-20 flex items-center gap-1">
+                    <div className="w-full bg-gradient-to-r from-pink-600 to-red-600 hover:from-pink-700 hover:to-red-700 text-white py-3 rounded-xl font-semibold transition-all flex items-center justify-center gap-2 group-hover:scale-105 shadow-lg shadow-pink-500/30 hover:shadow-xl hover:shadow-pink-500/40">
                       <MapPin className="w-3 h-3" />
                       Mumbai
                     </div>
@@ -632,8 +632,8 @@ export function LandingPageWithMap() {
                       <div className="text-sm text-gray-400">2 hours ago</div>
                     </div>
                     
-                    <button className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white py-3 rounded-xl font-semibold transition-all flex items-center justify-center gap-2 group-hover:scale-105">
-                      View Report
+                    <button className="w-full bg-gradient-to-r from-pink-600 to-red-600 hover:from-pink-700 hover:to-red-700 text-white py-3 rounded-xl font-semibold transition-all flex items-center justify-center gap-2 group-hover:scale-105 shadow-lg shadow-pink-500/30 hover:shadow-xl hover:shadow-pink-500/40">
+                      Directions
                       <ArrowRight className="w-4 h-4" />
                     </button>
                   </div>
@@ -669,7 +669,7 @@ export function LandingPageWithMap() {
                       💪 Gym
                     </div>
                     
-                    <div className="absolute top-4 right-4 bg-purple-500/90 backdrop-blur-sm text-white px-3 py-1.5 rounded-lg text-xs font-bold z-20 flex items-center gap-1">
+                    <div className="w-full bg-gradient-to-r from-pink-600 to-red-600 hover:from-pink-700 hover:to-red-700 text-white py-3 rounded-xl font-semibold transition-all flex items-center justify-center gap-2 group-hover:scale-105 shadow-lg shadow-pink-500/30 hover:shadow-xl hover:shadow-pink-500/40">
                       <MapPin className="w-3 h-3" />
                       Bangalore
                     </div>
@@ -728,7 +728,7 @@ export function LandingPageWithMap() {
                       🏘️ Neighborhood
                     </div>
                     
-                    <div className="absolute top-4 right-4 bg-orange-500/90 backdrop-blur-sm text-white px-3 py-1.5 rounded-lg text-xs font-bold z-20 flex items-center gap-1">
+                    <div className="w-full bg-gradient-to-r from-pink-600 to-red-600 hover:from-pink-700 hover:to-red-700 text-white py-3 rounded-xl font-semibold transition-all flex items-center justify-center gap-2 group-hover:scale-105 shadow-lg shadow-pink-500/30 hover:shadow-xl hover:shadow-pink-500/40">
                       <MapPin className="w-3 h-3" />
                       Delhi
                     </div>

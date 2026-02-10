@@ -16,10 +16,15 @@ import { LocationUploadDemo } from "./pages/LocationUploadDemo";
 import { CameraDiagnostics } from "./pages/CameraDiagnostics";
 import { SimpleCameraTest } from "./pages/SimpleCameraTest";
 import NearbyPlaces from "./pages/NearbyPlaces";
+import { LoginPage } from "./pages/LoginPage";
 
 export const router = createBrowserRouter([
   {
     path: "/",
+    Component: LoginPage,
+  },
+  {
+    path: "/home",
     Component: LandingPageWithMap,
   },
   {
