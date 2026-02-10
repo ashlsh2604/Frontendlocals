@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router';
 import { Navbar } from '../components/Navbar';
 import { Footer } from '../components/Footer';
-import { Search, MapPin, Shield, Clock, ArrowRight, Sparkles, Zap, Star, TrendingUp, CheckCircle } from 'lucide-react';
+import { Search, MapPin, Shield, Clock, ArrowRight, Sparkles, Zap, Star, TrendingUp, CheckCircle, Heart, Coffee, Pizza, Gift, Percent } from 'lucide-react';
 
 export function LandingPage() {
   const navigate = useNavigate();
@@ -222,6 +222,338 @@ export function LandingPage() {
         
         {/* Bottom Fade */}
         <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-white to-transparent" />
+      </section>
+
+      {/* Valentine's Day Special Offers Section */}
+      <section className="py-20 bg-gradient-to-br from-pink-50 via-red-50 to-rose-50 relative overflow-hidden">
+        {/* Floating Hearts Background */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          {[...Array(15)].map((_, i) => (
+            <div
+              key={i}
+              className="absolute animate-float-slow opacity-10"
+              style={{
+                left: `${Math.random() * 100}%`,
+                top: `${Math.random() * 100}%`,
+                animationDelay: `${Math.random() * 5}s`,
+                animationDuration: `${8 + Math.random() * 4}s`
+              }}
+            >
+              <Heart className="w-8 h-8 text-pink-500 fill-pink-500" />
+            </div>
+          ))}
+        </div>
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          {/* Section Header */}
+          <div className="text-center mb-12">
+            <div className="inline-flex items-center gap-2 bg-gradient-to-r from-pink-600 to-red-600 text-white text-sm font-bold px-5 py-2.5 rounded-full mb-4 shadow-lg animate-pulse">
+              <Heart className="w-4 h-4 fill-white" />
+              VALENTINE'S DAY SPECIAL
+              <Heart className="w-4 h-4 fill-white" />
+            </div>
+            <h2 className="text-4xl md:text-5xl font-black mb-4 bg-gradient-to-r from-pink-600 via-red-600 to-rose-600 bg-clip-text text-transparent">
+              Love is in the Air! ❤️
+            </h2>
+            <p className="text-xl text-gray-700 max-w-3xl mx-auto font-medium">
+              Celebrate with exclusive verified deals on romantic cafes & pizza places in Bangalore
+            </p>
+          </div>
+
+          {/* Offers Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+            {/* Cafe Offer 1 */}
+            <div className="group relative bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all hover:-translate-y-2 border-2 border-pink-200 hover:border-pink-400">
+              {/* Discount Badge */}
+              <div className="absolute top-4 right-4 z-20 bg-gradient-to-r from-red-500 to-pink-500 text-white px-3 py-1.5 rounded-full text-sm font-black shadow-lg flex items-center gap-1">
+                <Percent className="w-3 h-3" />
+                30% OFF
+              </div>
+
+              {/* Image */}
+              <div className="relative h-48 bg-gradient-to-br from-pink-200 to-rose-200 overflow-hidden">
+                <img
+                  src="https://images.unsplash.com/photo-1658829455151-992e776998bf?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjYWZlJTIwcm9tYW50aWMlMjBjb3VwbGV8ZW58MXx8fHwxNzcwNzM5OTg1fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
+                  alt="Romantic Cafe"
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                
+                {/* Type Badge */}
+                <div className="absolute bottom-3 left-3 bg-white/90 backdrop-blur-sm px-3 py-1.5 rounded-lg flex items-center gap-2">
+                  <Coffee className="w-4 h-4 text-pink-600" />
+                  <span className="text-sm font-bold text-gray-900">Cafe</span>
+                </div>
+              </div>
+
+              {/* Content */}
+              <div className="p-5">
+                <div className="flex items-center gap-2 mb-2">
+                  <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
+                  <span className="text-xs font-bold text-green-600 uppercase">Verified</span>
+                </div>
+                
+                <h3 className="text-lg font-black text-gray-900 mb-1 group-hover:text-pink-600 transition-colors">
+                  The Love Brew Cafe
+                </h3>
+                
+                <div className="flex items-center gap-1 text-sm text-gray-600 mb-3">
+                  <MapPin className="w-3 h-3" />
+                  <span>Indiranagar, Bangalore</span>
+                </div>
+
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="flex items-center gap-1">
+                    <Star className="w-4 h-4 text-yellow-500 fill-yellow-500" />
+                    <span className="text-sm font-bold text-gray-900">4.9</span>
+                  </div>
+                  <span className="text-xs text-gray-500">156 reviews</span>
+                </div>
+
+                <div className="bg-pink-50 border border-pink-200 rounded-xl p-3 mb-4">
+                  <div className="flex items-center gap-2 mb-1">
+                    <Gift className="w-4 h-4 text-pink-600" />
+                    <span className="text-xs font-bold text-pink-900">Valentine's Special</span>
+                  </div>
+                  <p className="text-xs text-gray-700 font-medium">
+                    Complimentary dessert for couples + 30% off coffee
+                  </p>
+                  <div className="mt-2 text-xs text-gray-600">
+                    <span className="line-through">₹800</span>{' '}
+                    <span className="text-pink-600 font-black text-sm">₹560 for 2</span>
+                  </div>
+                </div>
+
+                <button
+                  onClick={() => navigate('/nearby')}
+                  className="w-full bg-gradient-to-r from-pink-600 to-red-600 hover:from-pink-700 hover:to-red-700 text-white py-2.5 rounded-xl font-bold text-sm transition-all flex items-center justify-center gap-2 shadow-md hover:shadow-lg"
+                >
+                  <Heart className="w-4 h-4 fill-white" />
+                  View Details
+                </button>
+              </div>
+            </div>
+
+            {/* Pizza Offer 1 */}
+            <div className="group relative bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all hover:-translate-y-2 border-2 border-red-200 hover:border-red-400">
+              <div className="absolute top-4 right-4 z-20 bg-gradient-to-r from-orange-500 to-red-500 text-white px-3 py-1.5 rounded-full text-sm font-black shadow-lg flex items-center gap-1">
+                <Percent className="w-3 h-3" />
+                25% OFF
+              </div>
+
+              <div className="relative h-48 bg-gradient-to-br from-red-200 to-orange-200 overflow-hidden">
+                <img
+                  src="https://images.unsplash.com/photo-1768051313568-b35886b9a093?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwaXp6YSUyMHJlc3RhdXJhbnQlMjByb21hbnRpY3xlbnwxfHx8fDE3NzA3Mzk5ODZ8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
+                  alt="Pizza Restaurant"
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                
+                <div className="absolute bottom-3 left-3 bg-white/90 backdrop-blur-sm px-3 py-1.5 rounded-lg flex items-center gap-2">
+                  <Pizza className="w-4 h-4 text-red-600" />
+                  <span className="text-sm font-bold text-gray-900">Pizza</span>
+                </div>
+              </div>
+
+              <div className="p-5">
+                <div className="flex items-center gap-2 mb-2">
+                  <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
+                  <span className="text-xs font-bold text-green-600 uppercase">Verified</span>
+                </div>
+                
+                <h3 className="text-lg font-black text-gray-900 mb-1 group-hover:text-red-600 transition-colors">
+                  Amore Pizza Lounge
+                </h3>
+                
+                <div className="flex items-center gap-1 text-sm text-gray-600 mb-3">
+                  <MapPin className="w-3 h-3" />
+                  <span>Koramangala, Bangalore</span>
+                </div>
+
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="flex items-center gap-1">
+                    <Star className="w-4 h-4 text-yellow-500 fill-yellow-500" />
+                    <span className="text-sm font-bold text-gray-900">4.7</span>
+                  </div>
+                  <span className="text-xs text-gray-500">203 reviews</span>
+                </div>
+
+                <div className="bg-red-50 border border-red-200 rounded-xl p-3 mb-4">
+                  <div className="flex items-center gap-2 mb-1">
+                    <Gift className="w-4 h-4 text-red-600" />
+                    <span className="text-xs font-bold text-red-900">Love Deal</span>
+                  </div>
+                  <p className="text-xs text-gray-700 font-medium">
+                    Heart-shaped pizza + free mocktails for 2
+                  </p>
+                  <div className="mt-2 text-xs text-gray-600">
+                    <span className="line-through">₹1,200</span>{' '}
+                    <span className="text-red-600 font-black text-sm">₹900 for 2</span>
+                  </div>
+                </div>
+
+                <button
+                  onClick={() => navigate('/nearby')}
+                  className="w-full bg-gradient-to-r from-red-600 to-orange-600 hover:from-red-700 hover:to-orange-700 text-white py-2.5 rounded-xl font-bold text-sm transition-all flex items-center justify-center gap-2 shadow-md hover:shadow-lg"
+                >
+                  <Heart className="w-4 h-4 fill-white" />
+                  View Details
+                </button>
+              </div>
+            </div>
+
+            {/* Cafe Offer 2 */}
+            <div className="group relative bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all hover:-translate-y-2 border-2 border-rose-200 hover:border-rose-400">
+              <div className="absolute top-4 right-4 z-20 bg-gradient-to-r from-rose-500 to-pink-500 text-white px-3 py-1.5 rounded-full text-sm font-black shadow-lg flex items-center gap-1">
+                <Percent className="w-3 h-3" />
+                35% OFF
+              </div>
+
+              <div className="relative h-48 bg-gradient-to-br from-rose-200 to-pink-200 overflow-hidden">
+                <img
+                  src="https://images.unsplash.com/photo-1749829134509-00f6ba18a0a2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjb2ZmZWUlMjBzaG9wJTIwdmFsZW50aW5lc3xlbnwxfHx8fDE3NzA3Mzk5ODZ8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
+                  alt="Coffee Shop"
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                
+                <div className="absolute bottom-3 left-3 bg-white/90 backdrop-blur-sm px-3 py-1.5 rounded-lg flex items-center gap-2">
+                  <Coffee className="w-4 h-4 text-rose-600" />
+                  <span className="text-sm font-bold text-gray-900">Cafe</span>
+                </div>
+              </div>
+
+              <div className="p-5">
+                <div className="flex items-center gap-2 mb-2">
+                  <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
+                  <span className="text-xs font-bold text-green-600 uppercase">Verified</span>
+                </div>
+                
+                <h3 className="text-lg font-black text-gray-900 mb-1 group-hover:text-rose-600 transition-colors">
+                  Hearts & Coffee Co.
+                </h3>
+                
+                <div className="flex items-center gap-1 text-sm text-gray-600 mb-3">
+                  <MapPin className="w-3 h-3" />
+                  <span>HSR Layout, Bangalore</span>
+                </div>
+
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="flex items-center gap-1">
+                    <Star className="w-4 h-4 text-yellow-500 fill-yellow-500" />
+                    <span className="text-sm font-bold text-gray-900">4.8</span>
+                  </div>
+                  <span className="text-xs text-gray-500">187 reviews</span>
+                </div>
+
+                <div className="bg-rose-50 border border-rose-200 rounded-xl p-3 mb-4">
+                  <div className="flex items-center gap-2 mb-1">
+                    <Gift className="w-4 h-4 text-rose-600" />
+                    <span className="text-xs font-bold text-rose-900">Couple's Package</span>
+                  </div>
+                  <p className="text-xs text-gray-700 font-medium">
+                    2 specialty lattes + heart cookies + cozy corner seating
+                  </p>
+                  <div className="mt-2 text-xs text-gray-600">
+                    <span className="line-through">₹650</span>{' '}
+                    <span className="text-rose-600 font-black text-sm">₹420 for 2</span>
+                  </div>
+                </div>
+
+                <button
+                  onClick={() => navigate('/nearby')}
+                  className="w-full bg-gradient-to-r from-rose-600 to-pink-600 hover:from-rose-700 hover:to-pink-700 text-white py-2.5 rounded-xl font-bold text-sm transition-all flex items-center justify-center gap-2 shadow-md hover:shadow-lg"
+                >
+                  <Heart className="w-4 h-4 fill-white" />
+                  View Details
+                </button>
+              </div>
+            </div>
+
+            {/* Pizza Offer 2 */}
+            <div className="group relative bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all hover:-translate-y-2 border-2 border-orange-200 hover:border-orange-400">
+              <div className="absolute top-4 right-4 z-20 bg-gradient-to-r from-red-500 to-orange-500 text-white px-3 py-1.5 rounded-full text-sm font-black shadow-lg flex items-center gap-1">
+                <Percent className="w-3 h-3" />
+                40% OFF
+              </div>
+
+              <div className="relative h-48 bg-gradient-to-br from-orange-200 to-red-200 overflow-hidden">
+                <img
+                  src="https://images.unsplash.com/photo-1675869583378-9bae94ca8d2f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwaXp6YSUyMHNsaWNlJTIwaGVhcnQlMjBzaGFwZWR8ZW58MXx8fHwxNzcwNzM5OTg2fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
+                  alt="Pizza Special"
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                
+                <div className="absolute bottom-3 left-3 bg-white/90 backdrop-blur-sm px-3 py-1.5 rounded-lg flex items-center gap-2">
+                  <Pizza className="w-4 h-4 text-orange-600" />
+                  <span className="text-sm font-bold text-gray-900">Pizza</span>
+                </div>
+              </div>
+
+              <div className="p-5">
+                <div className="flex items-center gap-2 mb-2">
+                  <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
+                  <span className="text-xs font-bold text-green-600 uppercase">Verified</span>
+                </div>
+                
+                <h3 className="text-lg font-black text-gray-900 mb-1 group-hover:text-orange-600 transition-colors">
+                  Pizza Romance Hub
+                </h3>
+                
+                <div className="flex items-center gap-1 text-sm text-gray-600 mb-3">
+                  <MapPin className="w-3 h-3" />
+                  <span>Whitefield, Bangalore</span>
+                </div>
+
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="flex items-center gap-1">
+                    <Star className="w-4 h-4 text-yellow-500 fill-yellow-500" />
+                    <span className="text-sm font-bold text-gray-900">4.6</span>
+                  </div>
+                  <span className="text-xs text-gray-500">234 reviews</span>
+                </div>
+
+                <div className="bg-orange-50 border border-orange-200 rounded-xl p-3 mb-4">
+                  <div className="flex items-center gap-2 mb-1">
+                    <Gift className="w-4 h-4 text-orange-600" />
+                    <span className="text-xs font-bold text-orange-900">Date Night Special</span>
+                  </div>
+                  <p className="text-xs text-gray-700 font-medium">
+                    Large pizza + garlic bread + 2 drinks + candlelit setup
+                  </p>
+                  <div className="mt-2 text-xs text-gray-600">
+                    <span className="line-through">₹1,500</span>{' '}
+                    <span className="text-orange-600 font-black text-sm">₹900 for 2</span>
+                  </div>
+                </div>
+
+                <button
+                  onClick={() => navigate('/nearby')}
+                  className="w-full bg-gradient-to-r from-orange-600 to-red-600 hover:from-orange-700 hover:to-red-700 text-white py-2.5 rounded-xl font-bold text-sm transition-all flex items-center justify-center gap-2 shadow-md hover:shadow-lg"
+                >
+                  <Heart className="w-4 h-4 fill-white" />
+                  View Details
+                </button>
+              </div>
+            </div>
+          </div>
+
+          {/* CTA */}
+          <div className="text-center">
+            <button
+              onClick={() => navigate('/nearby')}
+              className="inline-flex items-center gap-3 bg-gradient-to-r from-pink-600 via-red-600 to-rose-600 hover:from-pink-700 hover:to-rose-700 text-white px-8 py-4 rounded-2xl font-bold text-lg transition-all shadow-xl hover:shadow-2xl hover:scale-105"
+            >
+              <Heart className="w-5 h-5 fill-white animate-pulse" />
+              Explore All Valentine's Deals
+              <ArrowRight className="w-5 h-5" />
+            </button>
+            <p className="mt-4 text-sm text-gray-600 font-medium">
+              Valid until Feb 14, 2026 • Limited seats available • All places verified by locals
+            </p>
+          </div>
+        </div>
       </section>
 
       {/* Featured Verifications Section */}

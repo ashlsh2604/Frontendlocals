@@ -10,10 +10,12 @@ import { LocalTasksPage } from "./pages/LocalTasksPage";
 import { LocalUploadPage } from "./pages/LocalUploadPage";
 import { PhotoUploadDemo } from "./pages/PhotoUploadDemo";
 import { AddReviewPage } from "./pages/AddReviewPage";
+import { AccountPage } from "./pages/AccountPage";
 import { ComponentsDemo } from "./pages/ComponentsDemo";
 import { LocationUploadDemo } from "./pages/LocationUploadDemo";
 import { CameraDiagnostics } from "./pages/CameraDiagnostics";
 import { SimpleCameraTest } from "./pages/SimpleCameraTest";
+import NearbyPlaces from "./pages/NearbyPlaces";
 
 export const router = createBrowserRouter([
   {
@@ -27,6 +29,10 @@ export const router = createBrowserRouter([
   {
     path: "/request",
     Component: RequestPage,
+  },
+  {
+    path: "/nearby",
+    Component: NearbyPlaces,
   },
   {
     path: "/dashboard",
@@ -75,5 +81,9 @@ export const router = createBrowserRouter([
   {
     path: "/camera-test",
     Component: SimpleCameraTest,
+  },
+  {
+    path: "/account",
+    Component: AccountPage,
   },
 ]);
