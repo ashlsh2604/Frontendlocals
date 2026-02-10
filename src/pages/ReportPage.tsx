@@ -12,13 +12,120 @@ import {
   Star,
   Calendar,
   Download,
-  Share2
+  Share2,
+  ArrowLeft
 } from 'lucide-react';
 
 // Mock data for the report
 const mockReportData: Record<string, any> = {
   '1': {
     id: 1,
+    placeName: 'Sunrise Grand Hotel',
+    city: 'Mumbai',
+    address: 'Andheri West, Mumbai, Maharashtra 400053',
+    placeType: 'Hotel',
+    trustScore: 91,
+    verificationDate: '2026-02-10',
+    images: [
+      'https://images.unsplash.com/photo-1578683010236-d716f9a3f461?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxsdXh1cnklMjBob3RlbCUyMHJvb218ZW58MXx8fHwxNzcwNzE0NDkzfDA&ixlib=rb-4.1.0&q=80&w=1080',
+      'https://images.unsplash.com/photo-1720540244592-b4124532b318?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxsdXh1cnklMjBob3RlbCUyMGxvYmJ5fGVufDF8fHx8MTc3MDYyOTI2NHww&ixlib=rb-4.1.0&q=80&w=1080',
+      'https://images.unsplash.com/photo-1766928210443-0be92ed5884a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjBob3RlbCUyMHN1aXRlJTIwYmVkcm9vbXxlbnwxfHx8fDE3NzA2OTQxODR8MA&ixlib=rb-4.1.0&q=80&w=1080',
+    ],
+    verifier: {
+      name: 'Priya Sharma',
+      rating: 4.9,
+      totalVerifications: 203,
+      verified: true,
+    },
+    insights: [
+      {
+        category: 'Cleanliness',
+        status: 'positive',
+        comment: 'Immaculate rooms with daily housekeeping. Lobby and common areas spotless.',
+      },
+      {
+        category: 'Amenities',
+        status: 'positive',
+        comment: 'Swimming pool, gym, spa, and restaurant all functional. WiFi speed tested at 100 Mbps.',
+      },
+      {
+        category: 'Service Quality',
+        status: 'positive',
+        comment: '24/7 front desk, concierge service excellent. Staff very professional and helpful.',
+      },
+      {
+        category: 'Location',
+        status: 'positive',
+        comment: '5 minutes from airport. Close to shopping centers and restaurants. Easy metro access.',
+      },
+      {
+        category: 'Actual vs Photos',
+        status: 'positive',
+        comment: 'Rooms match or exceed photos. Views are as advertised. No discrepancies found.',
+      },
+      {
+        category: 'Value for Money',
+        status: 'positive',
+        comment: 'Premium pricing justified by excellent facilities and service. Breakfast included.',
+      },
+    ],
+    summary: 'Sunrise Grand Hotel is a premium 5-star property offering excellent service, modern amenities, and convenient location near Mumbai airport. Perfect for business travelers and luxury seekers.',
+  },
+  '2': {
+    id: 2,
+    placeName: 'FitZone Premium Gym',
+    city: 'Bangalore',
+    address: 'Indiranagar, Bangalore, Karnataka 560038',
+    placeType: 'Gym',
+    trustScore: 88,
+    verificationDate: '2026-02-10',
+    images: [
+      'https://images.unsplash.com/photo-1761971975769-97e598bf526b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjBmaXRuZXNzJTIwZ3ltJTIwaW50ZXJpb3IlMjBlcXVpcG1lbnR8ZW58MXx8fHwxNzcwNzMyNDQ0fDA&ixlib=rb-4.1.0&q=80&w=1080',
+      'https://images.unsplash.com/photo-1526401485004-46910ecc8e51?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjBneW0lMjBlcXVpcG1lbnQlMjB3ZWlnaHRzfGVufDF8fHx8MTc3MDczNTk2NHww&ixlib=rb-4.1.0&q=80&w=1080',
+      'https://images.unsplash.com/photo-1761971975962-9cc397e2ba2a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwcmVtaXVtJTIwZml0bmVzcyUyMGNlbnRlciUyMGludGVyaW9yfGVufDF8fHx8MTc3MDczNTk2NHww&ixlib=rb-4.1.0&q=80&w=1080',
+    ],
+    verifier: {
+      name: 'Arun Krishnan',
+      rating: 4.7,
+      totalVerifications: 156,
+      verified: true,
+    },
+    insights: [
+      {
+        category: 'Equipment',
+        status: 'positive',
+        comment: 'State-of-the-art equipment from premium brands. Wide variety of machines and free weights.',
+      },
+      {
+        category: 'Cleanliness',
+        status: 'positive',
+        comment: 'Equipment cleaned regularly. Changing rooms and showers well-maintained.',
+      },
+      {
+        category: 'Training Staff',
+        status: 'positive',
+        comment: 'Certified trainers available. Personal training sessions offered. Good expertise.',
+      },
+      {
+        category: 'Amenities',
+        status: 'positive',
+        comment: 'Steam room, sauna, and smoothie bar available. Lockers and parking provided.',
+      },
+      {
+        category: 'Crowd Levels',
+        status: 'warning',
+        comment: 'Can get crowded during peak hours (6-9 AM and 6-9 PM). Plan accordingly.',
+      },
+      {
+        category: 'Value for Money',
+        status: 'positive',
+        comment: 'Premium pricing but justified by facilities. Monthly packages available.',
+      },
+    ],
+    summary: 'FitZone Premium Gym offers top-tier fitness facilities with modern equipment, professional trainers, and excellent amenities. Best suited for serious fitness enthusiasts willing to invest in quality.',
+  },
+  '3': {
+    id: 3,
     placeName: 'ABC PG',
     city: 'Bangalore',
     address: '123 Koramangala, Bangalore, Karnataka 560034',
@@ -116,6 +223,17 @@ export function ReportPage() {
       
       <div className="flex-1 bg-gray-50 py-12">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Back Button */}
+          <button
+            onClick={() => navigate(-1)}
+            className="flex items-center gap-2 text-gray-600 hover:text-gray-900 mb-6 transition-colors group"
+          >
+            <div className="p-2 rounded-full bg-white shadow-md group-hover:shadow-lg group-hover:bg-gradient-to-r group-hover:from-pink-600 group-hover:to-red-600 transition-all">
+              <ArrowLeft className="w-5 h-5 group-hover:text-white transition-colors" />
+            </div>
+            <span className="font-semibold">Back</span>
+          </button>
+
           {/* Header */}
           <div className="bg-white rounded-lg shadow-md p-6 mb-6">
             <div className="flex justify-between items-start mb-4">

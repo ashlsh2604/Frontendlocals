@@ -222,9 +222,7 @@ export function LoginPage() {
               transition={{ delay: 0.4 }}
               className="text-gray-300 flex items-center justify-center gap-2"
             >
-              <Heart className="w-4 h-4 text-pink-400 fill-pink-400" />
               Welcome Back
-              <Heart className="w-4 h-4 text-pink-400 fill-pink-400" />
             </motion.p>
           </div>
 
@@ -415,7 +413,10 @@ export function LoginPage() {
                       />
                       <span className="relative z-10 flex items-center justify-center gap-2">
                         Sign In
-                        <Heart className="w-5 h-5 fill-white" />
+                        <div className="relative w-5 h-5 flex items-center justify-center">
+                          <MapPin className="w-5 h-5 text-white absolute" />
+                          <CheckCircle className="w-2.5 h-2.5 text-yellow-300 absolute" />
+                        </div>
                       </span>
                     </>
                   )}

@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router';
+import { User, Mail, Phone, MapPin, Shield, CreditCard, Edit2, Save, X, CheckCircle, Camera, Lock, Smartphone, Key, Coins, TrendingUp, Award, Gift, ArrowRight, Zap, Bell, Eye, EyeOff, LogOut, Image as ImageIcon, Video, History, FileText, Star, Clock, Building2, Dumbbell, Home, Search, MousePointerClick } from 'lucide-react';
+import { motion, AnimatePresence } from 'motion/react';
 import { Navbar } from '../components/Navbar';
 import { Footer } from '../components/Footer';
-import { User, Mail, Phone, MapPin, Shield, CreditCard, Edit2, Save, X, CheckCircle, Camera, Lock, Smartphone, Key, Coins, TrendingUp, Award, Gift, ArrowRight, Zap, Bell, Eye, EyeOff, LogOut } from 'lucide-react';
-import { motion } from 'motion/react';
 
 export function AccountPage() {
   const navigate = useNavigate();
@@ -12,6 +12,10 @@ export function AccountPage() {
   const [showVerificationCode, setShowVerificationCode] = useState(false);
   const [verificationCode, setVerificationCode] = useState(['', '', '', '', '', '']);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [isProfilePicModalOpen, setIsProfilePicModalOpen] = useState(false);
+  const [isHistoryModalOpen, setIsHistoryModalOpen] = useState(false);
+  const [historyTab, setHistoryTab] = useState<'verifications' | 'browsing'>('verifications');
+  const [profilePicture, setProfilePicture] = useState<string | null>(null);
   
   const [profileData, setProfileData] = useState({
     name: 'Rahul Sharma',
@@ -35,6 +39,87 @@ export function AccountPage() {
       { id: 4, type: 'earned', amount: 50, description: 'Review verified', date: '2026-02-06', icon: CheckCircle, color: 'green' },
     ]
   };
+
+  // Recent Verifications History
+  const verificationHistory = [
+    {
+      id: 1,
+      placeName: 'Sunrise Grand Hotel',
+      placeType: 'Hotel',
+      location: 'Indiranagar, Bangalore',
+      date: '2026-02-09',
+      status: 'Completed',
+      trustScore: 92,
+      icon: Building2,
+      color: 'blue',
+    },
+    {
+      id: 2,
+      placeName: 'FitZone Premium Gym',
+      placeType: 'Gym',
+      location: 'Koramangala, Bangalore',
+      date: '2026-02-08',
+      status: 'Completed',
+      trustScore: 88,
+      icon: Dumbbell,
+      color: 'green',
+    },
+    {
+      id: 3,
+      placeName: 'ABC PG',
+      placeType: 'PG/Hostel',
+      location: 'HSR Layout, Bangalore',
+      date: '2026-02-06',
+      status: 'Completed',
+      trustScore: 87,
+      icon: Home,
+      color: 'purple',
+    },
+  ];
+
+  // Browsing Activity History
+  const browsingActivity = [
+    {
+      id: 1,
+      action: 'Viewed verification report',
+      page: 'Sunrise Grand Hotel',
+      time: '2 hours ago',
+      icon: MousePointerClick,
+      color: 'blue',
+    },
+    {
+      id: 2,
+      action: 'Searched for gyms',
+      page: 'Nearby Places',
+      time: '5 hours ago',
+      icon: Search,
+      color: 'purple',
+    },
+    {
+      id: 3,
+      action: 'Added review',
+      page: 'FitZone Premium Gym',
+      time: '1 day ago',
+      icon: Star,
+      color: 'yellow',
+    },
+    {
+      id: 4,
+      action: 'Viewed nearby places',
+      page: 'Koramangala Area',
+      time: '1 day ago',
+      icon: MapPin,
+      color: 'orange',
+    },
+    {
+      id: 5,
+      action: 'Checked dashboard',
+      page: 'Dashboard',
+      time: '2 days ago',
+      icon: Clock,
+      color: 'pink',
+    },
+  ];
 
   // Floating particles data
   const particles = Array.from({ length: 12 }, (_, i) => ({
@@ -106,6 +191,45 @@ export function AccountPage() {
     }
   };
 
+  const handleChoosePhoto = () => {
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = 'image/*';
+    input.onchange = (e: Event) => {
+      const file = (e.target as HTMLInputElement).files?.[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = (event) => {
+          setProfilePicture(event.target?.result as string);
+          setIsProfilePicModalOpen(false);
+        };
+        reader.readAsDataURL(file);
+      }
+    };
+    input.click();
+  };
+
+  const handleTakePhoto = () => {
+    // In a real app, this would open the device camera
+    // For now, we'll simulate it with a file input
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = 'image/*';
+    input.capture = 'environment' as any; // Opens camera on mobile devices
+    input.onchange = (e: Event) => {
+      const file = (e.target as HTMLInputElement).files?.[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = (event) => {
+          setProfilePicture(event.target?.result as string);
+          setIsProfilePicModalOpen(false);
+        };
+        reader.readAsDataURL(file);
+      }
+    };
+    input.click();
+  };
+
   return (
     <div className="min-h-screen flex flex-col bg-white relative overflow-hidden">
       <Navbar />
@@ -164,30 +288,6 @@ export function AccountPage() {
             animate={{ opacity: 1, y: 0 }}
             className="text-center mb-12"
           >
-            <motion.div
-              initial={{ scale: 0 }}
-              animate={{ scale: 1 }}
-              transition={{ delay: 0.2, type: "spring" }}
-              className="inline-block mb-4"
-            >
-              <div className="relative">
-                <motion.div
-                  className="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-500 blur-2xl opacity-50"
-                  animate={{
-                    scale: [1, 1.2, 1],
-                    opacity: [0.5, 0.8, 0.5],
-                  }}
-                  transition={{
-                    duration: 3,
-                    repeat: Infinity,
-                  }}
-                />
-                <div className="relative bg-gradient-to-r from-blue-500 to-purple-500 w-20 h-20 rounded-full flex items-center justify-center">
-                  <User className="w-10 h-10 text-white" />
-                </div>
-              </div>
-            </motion.div>
-
             <h1 className="text-4xl md:text-5xl font-black text-white mb-4">
               <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
                 Account Settings
@@ -454,6 +554,126 @@ export function AccountPage() {
                   </div>
                 </div>
               </motion.div>
+
+              {/* Activity History Section */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.4 }}
+                className="relative"
+              >
+                <motion.div
+                  className="absolute -inset-1 bg-gradient-to-r from-pink-500/20 via-red-500/20 to-orange-500/20 blur-xl rounded-3xl"
+                  animate={{
+                    opacity: [0.3, 0.5, 0.3],
+                  }}
+                  transition={{
+                    duration: 4,
+                    repeat: Infinity,
+                  }}
+                />
+
+                <div className="relative bg-white/5 backdrop-blur-2xl border border-white/10 rounded-3xl p-8 shadow-2xl">
+                  <h2 className="text-2xl font-bold text-white flex items-center gap-3 mb-6">
+                    <div className="w-10 h-10 bg-gradient-to-br from-pink-600 to-red-600 rounded-xl flex items-center justify-center">
+                      <History className="w-5 h-5 text-white" />
+                    </div>
+                    Activity History
+                  </h2>
+
+                  {/* Tab Switcher */}
+                  <div className="flex gap-2 mb-6">
+                    <motion.button
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                      onClick={() => setHistoryTab('verifications')}
+                      className={`flex-1 py-3 px-4 rounded-xl font-semibold transition-all ${
+                        historyTab === 'verifications'
+                          ? 'bg-gradient-to-r from-pink-600 to-red-600 text-white shadow-lg'
+                          : 'bg-white/5 text-gray-400 hover:bg-white/10'
+                      }`}
+                    >
+                      Recent Verifications
+                    </motion.button>
+                    <motion.button
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                      onClick={() => setHistoryTab('browsing')}
+                      className={`flex-1 py-3 px-4 rounded-xl font-semibold transition-all ${
+                        historyTab === 'browsing'
+                          ? 'bg-gradient-to-r from-pink-600 to-red-600 text-white shadow-lg'
+                          : 'bg-white/5 text-gray-400 hover:bg-white/10'
+                      }`}
+                    >
+                      Browsing Activity
+                    </motion.button>
+                  </div>
+
+                  <div className="space-y-3 max-h-96 overflow-y-auto">
+                    {/* Verification History */}
+                    {historyTab === 'verifications' && verificationHistory.map((item, index) => (
+                      <motion.div
+                        key={item.id}
+                        initial={{ opacity: 0, x: 20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: 0.1 * index }}
+                        className="flex items-center gap-3 p-4 bg-white/5 hover:bg-gradient-to-r hover:from-pink-600/10 hover:to-red-600/10 rounded-xl transition-all cursor-pointer border border-white/10 hover:border-pink-500/30"
+                      >
+                        <div className={`w-12 h-12 bg-${item.color}-500/20 rounded-xl flex items-center justify-center flex-shrink-0`}>
+                          <item.icon className={`w-6 h-6 text-${item.color}-400`} />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <p className="text-base font-bold text-white truncate">{item.placeName}</p>
+                          <p className="text-sm text-gray-400">{item.location}</p>
+                          <p className="text-xs text-gray-500 mt-1">{item.date}</p>
+                        </div>
+                        <div className="text-right">
+                          <p className={`text-sm font-bold ${
+                            item.status === 'Completed' ? 'text-green-400' : 'text-blue-400'
+                          }`}>
+                            {item.status}
+                          </p>
+                          <p className="text-xs text-gray-400 mt-1">Score: {item.trustScore}</p>
+                        </div>
+                      </motion.div>
+                    ))}
+
+                    {/* Browsing Activity */}
+                    {historyTab === 'browsing' && browsingActivity.map((item, index) => (
+                      <motion.div
+                        key={item.id}
+                        initial={{ opacity: 0, x: 20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: 0.1 * index }}
+                        className="flex items-center gap-3 p-4 bg-white/5 hover:bg-gradient-to-r hover:from-pink-600/10 hover:to-red-600/10 rounded-xl transition-all cursor-pointer border border-white/10 hover:border-pink-500/30"
+                      >
+                        <div className={`w-12 h-12 bg-${item.color}-500/20 rounded-xl flex items-center justify-center flex-shrink-0`}>
+                          <item.icon className={`w-6 h-6 text-${item.color}-400`} />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <p className="text-base font-bold text-white truncate">{item.action}</p>
+                          <p className="text-sm text-gray-400">{item.page}</p>
+                        </div>
+                        <p className="text-sm font-semibold text-pink-400">
+                          {item.time}
+                        </p>
+                      </motion.div>
+                    ))}
+                  </div>
+
+                  {/* Footer info */}
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.5 }}
+                    className="mt-6 p-4 bg-gradient-to-r from-pink-500/10 to-red-500/10 border border-pink-500/20 rounded-xl"
+                  >
+                    <p className="text-sm text-pink-300 text-center">
+                      💕 Keep track of all your activities and verifications in one place!
+                    </p>
+                  </motion.div>
+                </div>
+              </motion.div>
             </div>
 
             {/* Sidebar - Credits */}
@@ -581,6 +801,68 @@ export function AccountPage() {
                 </div>
               </motion.div>
 
+              {/* Quick Actions - Settings Menu */}
+              <motion.div
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.55 }}
+                className="relative"
+              >
+                <motion.div
+                  className="absolute -inset-1 bg-gradient-to-r from-pink-500/20 via-red-500/20 to-orange-500/20 blur-xl rounded-3xl"
+                  animate={{
+                    opacity: [0.3, 0.5, 0.3],
+                  }}
+                  transition={{
+                    duration: 4,
+                    repeat: Infinity,
+                  }}
+                />
+
+                <div className="relative bg-white/5 backdrop-blur-2xl border border-white/10 rounded-3xl p-6 shadow-2xl">
+                  <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
+                    <FileText className="w-5 h-5 text-pink-400" />
+                    Quick Actions
+                  </h3>
+
+                  <div className="space-y-3">
+                    {/* History / Previous Verifications */}
+                    <motion.button
+                      whileHover={{ scale: 1.02, x: 5 }}
+                      whileTap={{ scale: 0.98 }}
+                      onClick={() => navigate('/dashboard')}
+                      className="w-full flex items-center gap-4 p-4 bg-white/5 hover:bg-gradient-to-r hover:from-pink-600/20 hover:to-red-600/20 border border-white/10 hover:border-pink-500/30 rounded-xl transition-all group"
+                    >
+                      <div className="w-11 h-11 bg-gradient-to-br from-pink-600 to-red-600 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+                        <History className="w-5 h-5 text-white" />
+                      </div>
+                      <div className="text-left flex-1">
+                        <h4 className="text-white font-bold text-sm">Previous Verifications</h4>
+                        <p className="text-gray-400 text-xs">View your history</p>
+                      </div>
+                      <ArrowRight className="w-5 h-5 text-pink-400 group-hover:translate-x-2 transition-transform" />
+                    </motion.button>
+
+                    {/* Add Review */}
+                    <motion.button
+                      whileHover={{ scale: 1.02, x: 5 }}
+                      whileTap={{ scale: 0.98 }}
+                      onClick={() => navigate('/add-review')}
+                      className="w-full flex items-center gap-4 p-4 bg-white/5 hover:bg-gradient-to-r hover:from-pink-600/20 hover:to-red-600/20 border border-white/10 hover:border-pink-500/30 rounded-xl transition-all group"
+                    >
+                      <div className="w-11 h-11 bg-gradient-to-br from-pink-600 to-red-600 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+                        <Star className="w-5 h-5 text-white" />
+                      </div>
+                      <div className="text-left flex-1">
+                        <h4 className="text-white font-bold text-sm">Add Review</h4>
+                        <p className="text-gray-400 text-xs">Share your experience</p>
+                      </div>
+                      <ArrowRight className="w-5 h-5 text-pink-400 group-hover:translate-x-2 transition-transform" />
+                    </motion.button>
+                  </div>
+                </div>
+              </motion.div>
+
               {/* Logout Button */}
               <motion.div
                 initial={{ opacity: 0, x: 20 }}
@@ -618,6 +900,276 @@ export function AccountPage() {
           </div>
         </div>
       </div>
+
+      {/* Profile Picture Modal */}
+      <AnimatePresence>
+        {isProfilePicModalOpen && (
+          <>
+            {/* Backdrop */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setIsProfilePicModalOpen(false)}
+              className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50"
+            />
+
+            {/* Modal */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.9, y: 20 }}
+              transition={{ type: "spring", stiffness: 300, damping: 30 }}
+              className="fixed inset-0 z-50 flex items-center justify-center p-4"
+              onClick={() => setIsProfilePicModalOpen(false)}
+            >
+              <motion.div
+                onClick={(e) => e.stopPropagation()}
+                className="relative w-full max-w-md"
+              >
+                {/* Glow effect */}
+                <motion.div
+                  className="absolute -inset-1 bg-gradient-to-r from-pink-600 to-red-600 blur-2xl opacity-50 rounded-3xl"
+                  animate={{
+                    scale: [1, 1.05, 1],
+                    opacity: [0.5, 0.7, 0.5],
+                  }}
+                  transition={{
+                    duration: 3,
+                    repeat: Infinity,
+                  }}
+                />
+
+                <div className="relative bg-gradient-to-br from-gray-900 via-black to-gray-900 rounded-3xl p-8 border border-white/10 shadow-2xl">
+                  {/* Header */}
+                  <div className="flex items-center justify-between mb-6">
+                    <h3 className="text-2xl font-bold text-white">Add Profile Picture</h3>
+                    <motion.button
+                      whileHover={{ scale: 1.1, rotate: 90 }}
+                      whileTap={{ scale: 0.9 }}
+                      onClick={() => setIsProfilePicModalOpen(false)}
+                      className="w-10 h-10 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center transition-colors"
+                    >
+                      <X className="w-5 h-5 text-white" />
+                    </motion.button>
+                  </div>
+
+                  <p className="text-gray-400 mb-6">Choose how you'd like to add your profile picture</p>
+
+                  <div className="space-y-4">
+                    {/* Choose Photo Button */}
+                    <motion.button
+                      whileHover={{ scale: 1.02, x: 5 }}
+                      whileTap={{ scale: 0.98 }}
+                      onClick={handleChoosePhoto}
+                      className="w-full flex items-center gap-4 p-5 bg-gradient-to-r from-pink-600/20 to-red-600/20 hover:from-pink-600/30 hover:to-red-600/30 border border-pink-500/30 rounded-2xl transition-all group"
+                    >
+                      <div className="w-14 h-14 bg-gradient-to-br from-pink-600 to-red-600 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+                        <ImageIcon className="w-7 h-7 text-white" />
+                      </div>
+                      <div className="text-left flex-1">
+                        <h4 className="text-white font-bold text-lg">Choose Photo</h4>
+                        <p className="text-gray-400 text-sm">Select from your gallery</p>
+                      </div>
+                      <div className="text-pink-400 group-hover:translate-x-2 transition-transform">
+                        →
+                      </div>
+                    </motion.button>
+
+                    {/* Take Photo Button */}
+                    <motion.button
+                      whileHover={{ scale: 1.02, x: 5 }}
+                      whileTap={{ scale: 0.98 }}
+                      onClick={handleTakePhoto}
+                      className="w-full flex items-center gap-4 p-5 bg-gradient-to-r from-purple-600/20 to-pink-600/20 hover:from-purple-600/30 hover:to-pink-600/30 border border-purple-500/30 rounded-2xl transition-all group"
+                    >
+                      <div className="w-14 h-14 bg-gradient-to-br from-purple-600 to-pink-600 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+                        <Camera className="w-7 h-7 text-white" />
+                      </div>
+                      <div className="text-left flex-1">
+                        <h4 className="text-white font-bold text-lg">Take Photo</h4>
+                        <p className="text-gray-400 text-sm">Use your camera</p>
+                      </div>
+                      <div className="text-purple-400 group-hover:translate-x-2 transition-transform">
+                        →
+                      </div>
+                    </motion.button>
+                  </div>
+
+                  {/* Info text */}
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.2 }}
+                    className="mt-6 p-4 bg-blue-500/10 border border-blue-500/20 rounded-xl"
+                  >
+                    <p className="text-sm text-blue-300 text-center">
+                      💕 Your profile picture helps others recognize you!
+                    </p>
+                  </motion.div>
+                </div>
+              </motion.div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
+
+      {/* History Modal */}
+      <AnimatePresence>
+        {isHistoryModalOpen && (
+          <>
+            {/* Backdrop */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setIsHistoryModalOpen(false)}
+              className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50"
+            />
+
+            {/* Modal */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.9, y: 20 }}
+              transition={{ type: "spring", stiffness: 300, damping: 30 }}
+              className="fixed inset-0 z-50 flex items-center justify-center p-4"
+              onClick={() => setIsHistoryModalOpen(false)}
+            >
+              <motion.div
+                onClick={(e) => e.stopPropagation()}
+                className="relative w-full max-w-2xl"
+              >
+                {/* Glow effect */}
+                <motion.div
+                  className="absolute -inset-1 bg-gradient-to-r from-pink-600 to-red-600 blur-2xl opacity-50 rounded-3xl"
+                  animate={{
+                    scale: [1, 1.05, 1],
+                    opacity: [0.5, 0.7, 0.5],
+                  }}
+                  transition={{
+                    duration: 3,
+                    repeat: Infinity,
+                  }}
+                />
+
+                <div className="relative bg-gradient-to-br from-gray-900 via-black to-gray-900 rounded-3xl p-8 border border-white/10 shadow-2xl max-h-[80vh] overflow-y-auto">
+                  {/* Header */}
+                  <div className="flex items-center justify-between mb-6">
+                    <h3 className="text-2xl font-bold text-white">Activity History</h3>
+                    <motion.button
+                      whileHover={{ scale: 1.1, rotate: 90 }}
+                      whileTap={{ scale: 0.9 }}
+                      onClick={() => setIsHistoryModalOpen(false)}
+                      className="w-10 h-10 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center transition-colors"
+                    >
+                      <X className="w-5 h-5 text-white" />
+                    </motion.button>
+                  </div>
+
+                  {/* Tab Switcher */}
+                  <div className="flex gap-2 mb-6">
+                    <motion.button
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                      onClick={() => setHistoryTab('verifications')}
+                      className={`flex-1 py-3 px-4 rounded-xl font-semibold transition-all ${
+                        historyTab === 'verifications'
+                          ? 'bg-gradient-to-r from-pink-600 to-red-600 text-white shadow-lg'
+                          : 'bg-white/5 text-gray-400 hover:bg-white/10'
+                      }`}
+                    >
+                      Verifications
+                    </motion.button>
+                    <motion.button
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                      onClick={() => setHistoryTab('browsing')}
+                      className={`flex-1 py-3 px-4 rounded-xl font-semibold transition-all ${
+                        historyTab === 'browsing'
+                          ? 'bg-gradient-to-r from-pink-600 to-red-600 text-white shadow-lg'
+                          : 'bg-white/5 text-gray-400 hover:bg-white/10'
+                      }`}
+                    >
+                      Browsing Activity
+                    </motion.button>
+                  </div>
+
+                  <p className="text-gray-400 mb-6">
+                    {historyTab === 'verifications' 
+                      ? 'View your recent verification history' 
+                      : 'Track your recent browsing activity'}
+                  </p>
+
+                  <div className="space-y-4">
+                    {/* Verification History */}
+                    {historyTab === 'verifications' && verificationHistory.map((item) => (
+                      <motion.div
+                        key={item.id}
+                        initial={{ opacity: 0, x: 20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: item.id * 0.1 }}
+                        className="flex items-center gap-3 p-4 bg-white/5 hover:bg-white/10 rounded-xl transition-all cursor-pointer border border-white/10 hover:border-pink-500/30"
+                      >
+                        <div className={`w-12 h-12 bg-${item.color}-500/20 rounded-xl flex items-center justify-center flex-shrink-0`}>
+                          <item.icon className={`w-6 h-6 text-${item.color}-400`} />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <p className="text-base font-bold text-white truncate">{item.placeName}</p>
+                          <p className="text-sm text-gray-400">{item.location}</p>
+                          <p className="text-xs text-gray-500 mt-1">{item.date}</p>
+                        </div>
+                        <div className="text-right">
+                          <p className={`text-lg font-bold ${
+                            item.status === 'Completed' ? 'text-green-400' : 'text-blue-400'
+                          }`}>
+                            {item.status}
+                          </p>
+                          <p className="text-xs text-gray-400 mt-1">Score: {item.trustScore}</p>
+                        </div>
+                      </motion.div>
+                    ))}
+
+                    {/* Browsing Activity */}
+                    {historyTab === 'browsing' && browsingActivity.map((item) => (
+                      <motion.div
+                        key={item.id}
+                        initial={{ opacity: 0, x: 20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: item.id * 0.1 }}
+                        className="flex items-center gap-3 p-4 bg-white/5 hover:bg-white/10 rounded-xl transition-all cursor-pointer border border-white/10 hover:border-pink-500/30"
+                      >
+                        <div className={`w-12 h-12 bg-${item.color}-500/20 rounded-xl flex items-center justify-center flex-shrink-0`}>
+                          <item.icon className={`w-6 h-6 text-${item.color}-400`} />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <p className="text-base font-bold text-white truncate">{item.action}</p>
+                          <p className="text-sm text-gray-400">{item.page}</p>
+                        </div>
+                        <p className="text-sm font-semibold text-gray-400">
+                          {item.time}
+                        </p>
+                      </motion.div>
+                    ))}
+                  </div>
+
+                  {/* Info text */}
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.2 }}
+                    className="mt-6 p-4 bg-blue-500/10 border border-blue-500/20 rounded-xl"
+                  >
+                    <p className="text-sm text-blue-300 text-center">
+                      💕 Track your activity and verifications all in one place!
+                    </p>
+                  </motion.div>
+                </div>
+              </motion.div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
 
       <Footer />
     </div>

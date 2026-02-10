@@ -326,11 +326,29 @@ export default function NearbyPlaces() {
       {/* Navbar */}
       <Navbar />
       
-      {/* Animated Background with Floating Particles */}
+      {/* Animated Background - Similar to Homepage */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {/* Gradient Orbs */}
+        {/* Dark Gradient Background - Multiple Layers - MAGENTA THEME */}
+        <div className="absolute inset-0 bg-gradient-to-br from-fuchsia-950 via-magenta-950 to-pink-950" />
+        <div className="absolute inset-0 bg-gradient-to-tr from-pink-900/40 via-fuchsia-900/30 to-rose-900/40" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-pink-600/20 via-transparent to-transparent" />
+        
+        {/* Grid Pattern Overlay */}
+        <div className="absolute inset-0 opacity-[0.03]" style={{
+          backgroundImage: `
+            linear-gradient(rgba(236, 72, 153, 0.3) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(236, 72, 153, 0.3) 1px, transparent 1px)
+          `,
+          backgroundSize: '100px 100px'
+        }} />
+        
+        {/* Spotlight Effects - MAGENTA */}
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1200px] h-[800px] bg-gradient-radial from-fuchsia-500/15 via-transparent to-transparent blur-3xl" />
+        <div className="absolute bottom-0 right-0 w-[800px] h-[600px] bg-gradient-radial from-pink-500/10 via-transparent to-transparent blur-3xl" />
+        
+        {/* Gradient Orbs - MAGENTA THEME */}
         <motion.div
-          className="absolute w-[500px] h-[500px] bg-gradient-to-br from-blue-500/20 to-cyan-500/20 rounded-full blur-3xl"
+          className="absolute w-[500px] h-[500px] bg-gradient-to-br from-pink-500/20 to-rose-500/20 rounded-full blur-3xl"
           animate={{
             x: [0, 100, -50, 0],
             y: [0, -100, 50, 0],
@@ -344,7 +362,7 @@ export default function NearbyPlaces() {
           style={{ top: '10%', left: '5%' }}
         />
         <motion.div
-          className="absolute w-[400px] h-[400px] bg-gradient-to-br from-purple-500/20 to-pink-500/20 rounded-full blur-3xl"
+          className="absolute w-[400px] h-[400px] bg-gradient-to-br from-fuchsia-500/20 to-pink-500/20 rounded-full blur-3xl"
           animate={{
             x: [0, -80, 80, 0],
             y: [0, 80, -80, 0],
@@ -358,7 +376,7 @@ export default function NearbyPlaces() {
           style={{ bottom: '15%', right: '10%' }}
         />
         <motion.div
-          className="absolute w-[350px] h-[350px] bg-gradient-to-br from-blue-400/15 to-purple-400/15 rounded-full blur-3xl"
+          className="absolute w-[350px] h-[350px] bg-gradient-to-br from-magenta-400/15 to-fuchsia-400/15 rounded-full blur-3xl"
           animate={{
             x: [0, 120, -60, 0],
             y: [0, -60, 100, 0],
@@ -372,11 +390,11 @@ export default function NearbyPlaces() {
           style={{ top: '50%', right: '30%' }}
         />
 
-        {/* Floating Particles */}
+        {/* Floating Particles - MAGENTA */}
         {Array.from({ length: 20 }).map((_, i) => (
           <motion.div
             key={i}
-            className="absolute w-1 h-1 bg-blue-400 rounded-full"
+            className="absolute w-1 h-1 bg-fuchsia-400 rounded-full"
             animate={{
               x: [0, Math.random() * 100 - 50, 0],
               y: [0, Math.random() * -200, 0],
@@ -396,7 +414,7 @@ export default function NearbyPlaces() {
           />
         ))}
 
-        {/* Floating Icons */}
+        {/* Floating Icons - MAGENTA */}
         {[MapPin, Star, Navigation, Hotel, Dumbbell, Home].map((Icon, i) => (
           <motion.div
             key={i}
@@ -417,7 +435,7 @@ export default function NearbyPlaces() {
               top: `${20 + (i % 3) * 25}%`,
             }}
           >
-            <Icon className="w-8 h-8 text-blue-400/20" />
+            <Icon className="w-8 h-8 text-fuchsia-400/20" />
           </motion.div>
         ))}
       </div>
