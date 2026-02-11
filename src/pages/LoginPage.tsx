@@ -430,7 +430,7 @@ export function LoginPage() {
                 </button>
                 <div className="text-sm text-gray-300">
                   Don't have an account?{' '}
-                  <Link to="/signup" className="text-pink-400 hover:text-pink-300 font-semibold transition-colors">
+                  <Link to="/local/signup" className="text-pink-400 hover:text-pink-300 font-semibold transition-colors">
                     Sign Up
                   </Link>
                 </div>

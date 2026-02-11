@@ -61,7 +61,7 @@ export const router = createBrowserRouter([
     Component: LocalLoginPage,
   },
   {
-    path: "/signup",
+    path: "/local/signup",
     Component: SignUpPage,
   },
   {

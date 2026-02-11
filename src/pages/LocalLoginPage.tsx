@@ -214,7 +214,7 @@ export function LocalLoginPage() {
                   Don't have an account?{' '}
                   <button
                     type="button"
-                    onClick={() => navigate('/signup')}
+                    onClick={() => navigate('/local/signup')}
                     className="text-blue-600 hover:text-blue-700 font-bold hover:underline transition-colors"
                   >
                     Sign Up
