@@ -1,5 +1,5 @@
 import { motion } from 'motion/react';
-import { MapPin, Star, Navigation, TrendingUp, Award, CheckCircle, Clock } from 'lucide-react';
+import { MapPin, Star, Navigation, TrendingUp, Award, CheckCircle, Clock, Phone, Info } from 'lucide-react';
 import { ImageWithFallback } from './figma/ImageWithFallback';
 
 interface Place {
@@ -18,6 +18,9 @@ interface Place {
   recentlyVerified: boolean;
   image: string;
   amenities: string[];
+  description: string;
+  hours: string;
+  phone: string;
 }
 
 interface PlaceCardProps {
@@ -25,9 +28,10 @@ interface PlaceCardProps {
   index: number;
   getTypeIcon: (type: string) => any;
   getTypeColor: (type: string) => string;
+  onPlaceClick?: (place: Place) => void;
 }
 
-export function PlaceCard({ place, index, getTypeIcon, getTypeColor }: PlaceCardProps) {
+export function PlaceCard({ place, index, getTypeIcon, getTypeColor, onPlaceClick }: PlaceCardProps) {
   const TypeIcon = getTypeIcon(place.type);
   
   return (
@@ -38,6 +42,7 @@ export function PlaceCard({ place, index, getTypeIcon, getTypeColor }: PlaceCard
       exit={{ opacity: 0, scale: 0.9 }}
       transition={{ delay: index * 0.05 }}
       whileHover={{ y: -8, scale: 1.02 }}
+      onClick={() => onPlaceClick?.(place)}
       className="group relative bg-white/70 backdrop-blur-xl rounded-2xl overflow-hidden border border-white/20 shadow-lg hover:shadow-2xl transition-all cursor-pointer"
     >
       {/* Badges */}
@@ -127,6 +132,29 @@ export function PlaceCard({ place, index, getTypeIcon, getTypeColor }: PlaceCard
             <span className="text-sm font-bold text-purple-600">{place.price}</span>
           </div>
         )}
+
+        {/* Description */}
+        <div className="mb-3">
+          <p className="text-xs text-gray-600 line-clamp-2">{place.description}</p>
+        </div>
+
+        {/* Hours & Phone */}
+        <div className="mb-3 space-y-1.5">
+          <div className="flex items-center gap-2 text-xs text-gray-700">
+            <Clock className="w-3.5 h-3.5 text-green-600" />
+            <span className="font-semibold">{place.hours}</span>
+          </div>
+          <div className="flex items-center gap-2 text-xs text-gray-700">
+            <Phone className="w-3.5 h-3.5 text-blue-600" />
+            <a 
+              href={`tel:${place.phone}`} 
+              className="font-semibold hover:text-blue-600 transition-colors"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {place.phone}
+            </a>
+          </div>
+        </div>
 
         {/* Amenities */}
         <div className="flex flex-wrap gap-1.5 mb-4">

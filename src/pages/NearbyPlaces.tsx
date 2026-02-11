@@ -1,7 +1,7 @@
 import { useState, useEffect, useMemo } from 'react';
 import { useLocation, useNavigate } from 'react-router';
 import { motion, AnimatePresence } from 'motion/react';
-import { MapPin, Star, Navigation, Filter, TrendingUp, Award, CheckCircle, Hotel, Dumbbell, Home, ChevronDown, X, ArrowUpDown, Clock, Zap, Target, Sparkles, Radio } from 'lucide-react';
+import { MapPin, Star, Navigation, Filter, TrendingUp, Award, CheckCircle, Hotel, Dumbbell, Home, ChevronDown, X, ArrowUpDown, Clock, Zap, Target, Sparkles, Radio, Phone, Mail, Share2, Heart, Bookmark } from 'lucide-react';
 import { ImageWithFallback } from '../components/figma/ImageWithFallback';
 import { Navbar } from '../components/Navbar';
 import { PlaceCard } from '../components/PlaceCard';
@@ -22,6 +22,9 @@ interface Place {
   recentlyVerified: boolean;
   image: string;
   amenities: string[];
+  description: string;
+  hours: string;
+  phone: string;
 }
 
 export default function NearbyPlaces() {
@@ -34,6 +37,7 @@ export default function NearbyPlaces() {
   const [showFilters, setShowFilters] = useState(false);
   const [maxDistance, setMaxDistance] = useState(10);
   const [isChangingDistance, setIsChangingDistance] = useState(false);
+  const [selectedPlace, setSelectedPlace] = useState<Place | null>(null);
 
   // Calculate distance between two coordinates using Haversine formula
   const calculateDistance = (lat1: number, lon1: number, lat2: number, lon2: number): number => {
@@ -79,7 +83,10 @@ export default function NearbyPlaces() {
         trending: true,
         recentlyVerified: true,
         image: 'https://images.unsplash.com/photo-1720540244592-b4124532b318?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxsdXh1cnklMjBob3RlbCUyMGxvYmJ5fGVufDF8fHx8MTc3MDYyOTI2NHww&ixlib=rb-4.1.0&q=80&w=1080',
-        amenities: ['Pool', 'Gym', 'Restaurant', 'WiFi', 'Parking']
+        amenities: ['Pool', 'Gym', 'Restaurant', 'WiFi', 'Parking'],
+        description: 'Experience luxury and comfort in the heart of Bangalore with our Grand Plaza Hotel. Enjoy a wide range of amenities and services to make your stay unforgettable.',
+        hours: '24/7',
+        phone: '+91 9876543210'
       },
       {
         id: 'h2',
@@ -94,7 +101,10 @@ export default function NearbyPlaces() {
         trending: false,
         recentlyVerified: true,
         image: 'https://images.unsplash.com/photo-1766928210443-0be92ed5884a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjBob3RlbCUyMHN1aXRlJTIwYmVkcm9vbXxlbnwxfHx8fDE3NzA2OTQxODR8MA&ixlib=rb-4.1.0&q=80&w=1080',
-        amenities: ['Rooftop Bar', 'Spa', 'WiFi', '24/7 Service']
+        amenities: ['Rooftop Bar', 'Spa', 'WiFi', '24/7 Service'],
+        description: 'Stay in style at Skyline Suites, offering luxurious suites with stunning views and top-notch amenities. Perfect for both business and leisure travelers.',
+        hours: '24/7',
+        phone: '+91 9876543210'
       },
       {
         id: 'h3',
@@ -109,7 +119,10 @@ export default function NearbyPlaces() {
         trending: true,
         recentlyVerified: false,
         image: 'https://images.unsplash.com/photo-1762420874081-b93a5fb337f8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxob3RlbCUyMGV4dGVyaW9yJTIwbmlnaHQlMjBsaWdodHN8ZW58MXx8fHwxNzcwNzM1OTY0fDA&ixlib=rb-4.1.0&q=80&w=1080',
-        amenities: ['Free Breakfast', 'WiFi', 'Parking']
+        amenities: ['Free Breakfast', 'WiFi', 'Parking'],
+        description: 'Comfort Inn Downtown provides a cozy and convenient stay in the heart of Bangalore. Enjoy free breakfast, high-speed WiFi, and ample parking.',
+        hours: '24/7',
+        phone: '+91 9876543210'
       },
       {
         id: 'h4',
@@ -124,7 +137,10 @@ export default function NearbyPlaces() {
         trending: true,
         recentlyVerified: true,
         image: 'https://images.unsplash.com/photo-1761476328661-e9a05bb7fca4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxib3V0aXF1ZSUyMGhvdGVsJTIwd2F0ZXJmcm9udCUyMHZpZXd8ZW58MXx8fHwxNzcwNzM1OTY0fDA&ixlib=rb-4.1.0&q=80&w=1080',
-        amenities: ['River View', 'Fine Dining', 'Spa', 'Concierge']
+        amenities: ['River View', 'Fine Dining', 'Spa', 'Concierge'],
+        description: 'Nestled along the picturesque riverside, The Riverside Hotel offers a serene and luxurious stay with stunning river views and exceptional services.',
+        hours: '24/7',
+        phone: '+91 9876543210'
       },
       
       // Gyms
@@ -141,7 +157,10 @@ export default function NearbyPlaces() {
         trending: true,
         recentlyVerified: true,
         image: 'https://images.unsplash.com/photo-1526401485004-46910ecc8e51?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjBneW0lMjBlcXVpcG1lbnQlMjB3ZWlnaHRzfGVufDF8fHx8MTc3MDczNTk2NHww&ixlib=rb-4.1.0&q=80&w=1080',
-        amenities: ['Weights', 'Cardio', 'Classes', 'Showers', 'Lockers']
+        amenities: ['Weights', 'Cardio', 'Classes', 'Showers', 'Lockers'],
+        description: 'PowerFit Gym is your go-to fitness destination in Bangalore, offering a wide range of equipment and classes to help you achieve your fitness goals.',
+        hours: '6 AM - 10 PM',
+        phone: '+91 9876543210'
       },
       {
         id: 'g2',
@@ -156,7 +175,10 @@ export default function NearbyPlaces() {
         trending: true,
         recentlyVerified: true,
         image: 'https://images.unsplash.com/photo-1761971975962-9cc397e2ba2a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwcmVtaXVtJTIwZml0bmVzcyUyMGNlbnRlciUyMGludGVyaW9yfGVufDF8fHx8MTc3MDczNTk2NHww&ixlib=rb-4.1.0&q=80&w=1080',
-        amenities: ['Personal Training', 'Pool', 'Sauna', 'Smoothie Bar']
+        amenities: ['Personal Training', 'Pool', 'Sauna', 'Smoothie Bar'],
+        description: 'Elite Performance Center is a premier fitness facility in Bangalore, providing personalized training, a pool, sauna, and a smoothie bar to enhance your fitness journey.',
+        hours: '6 AM - 10 PM',
+        phone: '+91 9876543210'
       },
       {
         id: 'g3',
@@ -171,7 +193,10 @@ export default function NearbyPlaces() {
         trending: false,
         recentlyVerified: false,
         image: 'https://images.unsplash.com/photo-1761971975769-97e598bf526b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxneW0lMjBpbnRlcmlvciUyMHdvcmtvdXQlMjBzcGFjZXxlbnwxfHx8fDE3NzA3MzU5NjV8MA&ixlib=rb-4.1.0&q=80&w=1080',
-        amenities: ['24/7 Access', 'Cardio', 'Weights', 'WiFi']
+        amenities: ['24/7 Access', 'Cardio', 'Weights', 'WiFi'],
+        description: '24/7 Fitness Hub is your ultimate fitness solution in Bangalore, offering 24/7 access to cardio equipment, weights, and high-speed WiFi.',
+        hours: '24/7',
+        phone: '+91 9876543210'
       },
       {
         id: 'g4',
@@ -186,7 +211,10 @@ export default function NearbyPlaces() {
         trending: true,
         recentlyVerified: true,
         image: 'https://images.unsplash.com/photo-1767611120077-3697335ec748?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx5b2dhJTIwc3R1ZGlvJTIwcGVhY2VmdWwlMjBtZWRpdGF0aW9ufGVufDF8fHx8MTc3MDczNTk2NXww&ixlib=rb-4.1.0&q=80&w=1080',
-        amenities: ['Yoga Classes', 'Meditation', 'Spa', 'Wellness Programs']
+        amenities: ['Yoga Classes', 'Meditation', 'Spa', 'Wellness Programs'],
+        description: 'Yoga & Wellness Studio in Malleshwaram offers a holistic approach to wellness with yoga classes, meditation, spa treatments, and wellness programs.',
+        hours: '6 AM - 10 PM',
+        phone: '+91 9876543210'
       },
       
       // Neighborhoods
@@ -202,7 +230,10 @@ export default function NearbyPlaces() {
         trending: true,
         recentlyVerified: true,
         image: 'https://images.unsplash.com/photo-1627087823136-a7668a7a06f9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx1cmJhbiUyMGFydHMlMjBkaXN0cmljdCUyMHN0cmVldHxlbnwxfHx8fDE3NzA3MzU5NjZ8MA&ixlib=rb-4.1.0&q=80&w=1080',
-        amenities: ['Galleries', 'Cafes', 'Nightlife', 'Public Transit', 'Parks']
+        amenities: ['Galleries', 'Cafes', 'Nightlife', 'Public Transit', 'Parks'],
+        description: 'Discover the vibrant arts district in Indiranagar, featuring galleries, cafes, nightlife, public transit, and beautiful parks.',
+        hours: '24/7',
+        phone: '+91 9876543210'
       },
       {
         id: 'n2',
@@ -216,7 +247,10 @@ export default function NearbyPlaces() {
         trending: true,
         recentlyVerified: true,
         image: 'https://images.unsplash.com/photo-1761613788675-503cb20ee73e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxyZXNpZGVudGlhbCUyMG5laWdoYm9yaG9vZCUyMHRyZWVzJTIwaG91c2VzfGVufDF8fHx8MTc3MDczNTk2Nnww&ixlib=rb-4.1.0&q=80&w=1080',
-        amenities: ['Family Friendly', 'Schools', 'Parks', 'Shopping', 'Safe']
+        amenities: ['Family Friendly', 'Schools', 'Parks', 'Shopping', 'Safe'],
+        description: 'Ulsoor Lake Residential offers a family-friendly environment with schools, parks, shopping, and a safe community, nestled around the beautiful Ulsoor Lake.',
+        hours: '24/7',
+        phone: '+91 9876543210'
       },
       {
         id: 'n3',
@@ -230,7 +264,10 @@ export default function NearbyPlaces() {
         trending: true,
         recentlyVerified: false,
         image: 'https://images.unsplash.com/photo-1766058481154-02ce7abd670b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjB1cmJhbiUyMGRldmVsb3BtZW50JTIwYnVpbGRpbmdzfGVufDF8fHx8MTc3MDczNTk2Nnww&ixlib=rb-4.1.0&q=80&w=1080',
-        amenities: ['Co-working Spaces', 'Startups', 'Cafes', 'Fast Internet']
+        amenities: ['Co-working Spaces', 'Startups', 'Cafes', 'Fast Internet'],
+        description: 'Electronic City Tech Hub is a bustling tech hub in Bangalore, offering co-working spaces, startups, cafes, and fast internet connectivity.',
+        hours: '24/7',
+        phone: '+91 9876543210'
       },
       {
         id: 'n4',
@@ -244,7 +281,10 @@ export default function NearbyPlaces() {
         trending: false,
         recentlyVerified: true,
         image: 'https://images.unsplash.com/photo-1643573759086-20bfa523d40e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxoaXN0b3JpYyUyMGFyY2hpdGVjdHVyZSUyMHN0cmVldCUyMGV1cm9wZXxlbnwxfHx8fDE3NzA3MzU5Njd8MA&ixlib=rb-4.1.0&q=80&w=1080',
-        amenities: ['Historic Sites', 'Temples', 'Restaurants', 'Cultural Tours']
+        amenities: ['Historic Sites', 'Temples', 'Restaurants', 'Cultural Tours'],
+        description: 'Basavanagudi Heritage is a historic neighborhood in Bangalore, featuring historic sites, temples, restaurants, and cultural tours.',
+        hours: '24/7',
+        phone: '+91 9876543210'
       },
     ];
 
@@ -934,7 +974,7 @@ export default function NearbyPlaces() {
                 <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                   <AnimatePresence mode="popLayout">
                     {categorizedPlaces.hotels.map((place, index) => (
-                      <PlaceCard key={place.id} place={place} index={index} getTypeIcon={getTypeIcon} getTypeColor={getTypeColor} />
+                      <PlaceCard key={place.id} place={place} index={index} getTypeIcon={getTypeIcon} getTypeColor={getTypeColor} onPlaceClick={setSelectedPlace} />
                     ))}
                   </AnimatePresence>
                 </motion.div>

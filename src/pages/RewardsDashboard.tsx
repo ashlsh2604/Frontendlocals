@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'motion/react';
 import { Navbar } from '../components/Navbar';
 import { TrustBadge, getTrustLevel } from '../components/TrustBadge';
@@ -31,7 +31,31 @@ export function RewardsDashboard() {
     responseRate: 98,
   });
 
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+
   const trustLevel = getTrustLevel(userStats.trustScore);
+
+  // Floating particles data
+  const particles = Array.from({ length: 20 }, (_, i) => ({
+    id: i,
+    x: Math.random() * 100,
+    y: Math.random() * 100,
+    size: Math.random() * 4 + 2,
+    duration: Math.random() * 10 + 10,
+    delay: Math.random() * 5,
+  }));
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      setMousePosition({
+        x: (e.clientX / window.innerWidth) * 20 - 10,
+        y: (e.clientY / window.innerHeight) * 20 - 10,
+      });
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, []);
 
   const recentVerifications = [
     {
@@ -91,10 +115,81 @@ export function RewardsDashboard() {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-pink-50 via-white to-red-50">
+    <div className="min-h-screen relative overflow-hidden">
       <Navbar />
 
-      <div className="container mx-auto px-4 py-8 pt-24 max-w-7xl">
+      {/* Animated Background - Same as Home Page */}
+      <div className="absolute inset-0 -z-10">
+        {/* Base dark layer */}
+        <div className="absolute inset-0 bg-gradient-to-br from-fuchsia-950 via-magenta-950 to-pink-950" />
+        
+        {/* Animated Map Grid */}
+        <div 
+          className="absolute inset-0 opacity-20"
+          style={{
+            backgroundImage: `
+              linear-gradient(rgba(236, 72, 153, 0.3) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(236, 72, 153, 0.3) 1px, transparent 1px)
+            `,
+            backgroundSize: '50px 50px',
+            transform: `translate(${mousePosition.x}px, ${mousePosition.y}px)`,
+            transition: 'transform 0.3s ease-out',
+          }}
+        />
+
+        {/* Floating Particles */}
+        {particles.map((particle) => (
+          <motion.div
+            key={particle.id}
+            className="absolute w-1 h-1 bg-fuchsia-400 rounded-full"
+            style={{
+              left: `${particle.x}%`,
+              top: `${particle.y}%`,
+            }}
+            animate={{
+              y: [0, -100, 0],
+              opacity: [0, 1, 0],
+              scale: [0, particle.size, 0],
+            }}
+            transition={{
+              duration: particle.duration,
+              repeat: Infinity,
+              delay: particle.delay,
+              ease: "easeInOut",
+            }}
+          />
+        ))}
+
+        {/* Glowing Orbs */}
+        <motion.div
+          className="absolute top-1/4 left-1/4 w-96 h-96 bg-fuchsia-600 rounded-full blur-3xl opacity-20"
+          animate={{
+            scale: [1, 1.2, 1],
+            x: [0, 50, 0],
+            y: [0, 30, 0],
+          }}
+          transition={{
+            duration: 8,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
+        <motion.div
+          className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-pink-600 rounded-full blur-3xl opacity-20"
+          animate={{
+            scale: [1.2, 1, 1.2],
+            x: [0, -50, 0],
+            y: [0, -30, 0],
+          }}
+          transition={{
+            duration: 10,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
+      </div>
+
+      <div className="container mx-auto px-4 py-8 pt-24 max-w-7xl relative z-10">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
@@ -102,12 +197,12 @@ export function RewardsDashboard() {
           className="mb-8"
         >
           <div className="flex items-center gap-3 mb-2">
-            <Trophy className="w-8 h-8 text-pink-600" />
-            <h1 className="text-3xl font-bold bg-gradient-to-r from-pink-600 to-red-600 bg-clip-text text-transparent">
+            <Trophy className="w-8 h-8 text-pink-400" />
+            <h1 className="text-3xl font-bold bg-gradient-to-r from-pink-400 to-fuchsia-400 bg-clip-text text-transparent">
               Rewards & Trust
             </h1>
           </div>
-          <p className="text-gray-600">Build your reputation, earn rewards, and unlock exclusive benefits</p>
+          <p className="text-pink-200">Build your reputation, earn rewards, and unlock exclusive benefits</p>
         </motion.div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
@@ -168,8 +263,8 @@ export function RewardsDashboard() {
           animate={{ opacity: 1, y: 0 }}
           className="mb-8"
         >
-          <h2 className="text-2xl font-bold mb-4 flex items-center gap-2">
-            <Sparkles className="w-6 h-6 text-pink-600" />
+          <h2 className="text-2xl font-bold mb-4 flex items-center gap-2 text-white">
+            <Sparkles className="w-6 h-6 text-pink-400" />
             Unlock More Benefits
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -227,11 +322,11 @@ export function RewardsDashboard() {
           animate={{ opacity: 1, y: 0 }}
         >
           <div className="flex items-center justify-between mb-4">
-            <h2 className="text-2xl font-bold flex items-center gap-2">
-              <Award className="w-6 h-6 text-pink-600" />
+            <h2 className="text-2xl font-bold flex items-center gap-2 text-white">
+              <Award className="w-6 h-6 text-pink-400" />
               Recent Verifications
             </h2>
-            <button className="text-pink-600 hover:text-pink-700 font-medium text-sm flex items-center gap-1">
+            <button className="text-pink-400 hover:text-pink-300 font-medium text-sm flex items-center gap-1">
               View All <ArrowRight className="w-4 h-4" />
             </button>
           </div>

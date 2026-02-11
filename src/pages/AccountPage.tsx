@@ -362,6 +362,57 @@ export function AccountPage() {
                   </div>
 
                   <div className="space-y-6">
+                    {/* Profile Picture Section */}
+                    <div className="flex flex-col items-center mb-6 pb-6 border-b border-white/10">
+                      <label className="block text-sm font-semibold text-gray-300 mb-4">Profile Picture</label>
+                      <div className="relative group">
+                        {/* Profile Picture Display */}
+                        <motion.div
+                          whileHover={{ scale: 1.05 }}
+                          className="relative w-32 h-32 rounded-full overflow-hidden border-4 border-white/20 shadow-2xl cursor-pointer"
+                          onClick={() => setIsProfilePicModalOpen(true)}
+                        >
+                          {profilePicture ? (
+                            <img 
+                              src={profilePicture} 
+                              alt="Profile" 
+                              className="w-full h-full object-cover"
+                            />
+                          ) : (
+                            <div className="w-full h-full bg-gradient-to-br from-pink-600 to-purple-600 flex items-center justify-center">
+                              <span className="text-5xl font-bold text-white">
+                                {profileData.name.charAt(0)}
+                              </span>
+                            </div>
+                          )}
+                          
+                          {/* Hover Overlay */}
+                          <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                            <Camera className="w-8 h-8 text-white" />
+                          </div>
+                        </motion.div>
+
+                        {/* Edit Badge */}
+                        <motion.button
+                          whileHover={{ scale: 1.1 }}
+                          whileTap={{ scale: 0.9 }}
+                          onClick={() => setIsProfilePicModalOpen(true)}
+                          className="absolute bottom-0 right-0 w-10 h-10 bg-gradient-to-r from-pink-600 to-red-600 rounded-full flex items-center justify-center shadow-lg border-2 border-white"
+                        >
+                          <Camera className="w-5 h-5 text-white" />
+                        </motion.button>
+                      </div>
+                      
+                      <motion.button
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        onClick={() => setIsProfilePicModalOpen(true)}
+                        className="mt-4 px-6 py-2 bg-gradient-to-r from-pink-600 to-red-600 text-white rounded-xl font-medium shadow-lg hover:from-pink-700 hover:to-red-700 transition-all"
+                      >
+                        {profilePicture ? 'Change Photo' : 'Add Photo'}
+                      </motion.button>
+                    </div>
+
                     {/* Name */}
                     <div>
                       <label className="block text-sm font-semibold text-gray-300 mb-2">Full Name</label>
@@ -943,7 +994,9 @@ export function AccountPage() {
                 <div className="relative bg-gradient-to-br from-gray-900 via-black to-gray-900 rounded-3xl p-8 border border-white/10 shadow-2xl">
                   {/* Header */}
                   <div className="flex items-center justify-between mb-6">
-                    <h3 className="text-2xl font-bold text-white">Add Profile Picture</h3>
+                    <h3 className="text-2xl font-bold text-white">
+                      {profilePicture ? 'Change Profile Picture' : 'Add Profile Picture'}
+                    </h3>
                     <motion.button
                       whileHover={{ scale: 1.1, rotate: 90 }}
                       whileTap={{ scale: 0.9 }}
@@ -955,6 +1008,20 @@ export function AccountPage() {
                   </div>
 
                   <p className="text-gray-400 mb-6">Choose how you'd like to add your profile picture</p>
+
+                  {/* Current Photo Preview */}
+                  {profilePicture && (
+                    <motion.div
+                      initial={{ opacity: 0, scale: 0.9 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      className="mb-6 flex flex-col items-center"
+                    >
+                      <p className="text-sm text-gray-400 mb-3">Current Photo</p>
+                      <div className="w-24 h-24 rounded-full overflow-hidden border-4 border-pink-500/30 shadow-lg">
+                        <img src={profilePicture} alt="Current profile" className="w-full h-full object-cover" />
+                      </div>
+                    </motion.div>
+                  )}
 
                   <div className="space-y-4">
                     {/* Choose Photo Button */}
@@ -994,6 +1061,30 @@ export function AccountPage() {
                         →
                       </div>
                     </motion.button>
+
+                    {/* Remove Photo Button - Only show if photo exists */}
+                    {profilePicture && (
+                      <motion.button
+                        whileHover={{ scale: 1.02, x: 5 }}
+                        whileTap={{ scale: 0.98 }}
+                        onClick={() => {
+                          setProfilePicture(null);
+                          setIsProfilePicModalOpen(false);
+                        }}
+                        className="w-full flex items-center gap-4 p-5 bg-gradient-to-r from-red-600/20 to-orange-600/20 hover:from-red-600/30 hover:to-orange-600/30 border border-red-500/30 rounded-2xl transition-all group"
+                      >
+                        <div className="w-14 h-14 bg-gradient-to-br from-red-600 to-orange-600 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+                          <X className="w-7 h-7 text-white" />
+                        </div>
+                        <div className="text-left flex-1">
+                          <h4 className="text-white font-bold text-lg">Remove Photo</h4>
+                          <p className="text-gray-400 text-sm">Delete current picture</p>
+                        </div>
+                        <div className="text-red-400 group-hover:translate-x-2 transition-transform">
+                          →
+                        </div>
+                      </motion.button>
+                    )}
                   </div>
 
                   {/* Info text */}
