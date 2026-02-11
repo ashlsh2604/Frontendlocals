@@ -17,6 +17,7 @@ import { CameraDiagnostics } from "./pages/CameraDiagnostics";
 import { SimpleCameraTest } from "./pages/SimpleCameraTest";
 import NearbyPlaces from "./pages/NearbyPlaces";
 import { LoginPage } from "./pages/LoginPage";
+import { RewardsDashboard } from "./pages/RewardsDashboard";
 
 export const router = createBrowserRouter([
   {
@@ -42,6 +43,10 @@ export const router = createBrowserRouter([
   {
     path: "/dashboard",
     Component: DashboardPage,
+  },
+  {
+    path: "/rewards",
+    Component: RewardsDashboard,
   },
   {
     path: "/report/:id",

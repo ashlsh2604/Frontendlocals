@@ -186,6 +186,7 @@ export function Navbar() {
 
   const navItems = [
     { path: '/home', label: 'Home', icon: Home, primary: false },
+    { path: '/rewards', label: 'Rewards', icon: Award, primary: false },
     { path: '/add-review', label: 'Add Review', icon: PenSquare, primary: false },
   ];
 
